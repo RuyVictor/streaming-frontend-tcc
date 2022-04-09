@@ -1,4 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const moveAnimation = keyframes`
+  from { 
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+`;
 
 export const Container = styled.div`
   display: grid;
@@ -16,8 +27,11 @@ export const CardContainer = styled.div`
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.yellow};
   gap: 10px;
-  border-radius: 5px;
+  border-radius: 7px;
   overflow: hidden;
+  animation-name: ${moveAnimation};
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-duration: 1s;
 `;
 
 export const HorizontalContainer = styled.div`
@@ -38,9 +52,11 @@ export const ImageCard = styled.img`
   width: 100%;
   height: 200px;
   transition: all 300ms;
+  cursor: pointer;
+
   :hover {
-    opacity: 0.8;
-    cursor: pointer;
+    opacity: 0.9;
+    box-shadow: 0px 0px 105px 0px rgba(255,25,221,0.9);
   }
 `;
 

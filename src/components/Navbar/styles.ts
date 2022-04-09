@@ -23,3 +23,9 @@ export const Title = styled.span`
   color: ${({ theme }) => theme.colors.black};
   white-space: nowrap;
 `;
+
+export const ProfileName = styled.span`
+  font-size: 15px;
+  color: ${({ theme }) => theme.colors.black};
+  white-space: nowrap;
+`;

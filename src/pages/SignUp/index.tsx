@@ -2,29 +2,29 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/auth.hook";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ISignInDTO } from "../../models/Auth";
-import { SignInSchema } from "../../utils/schemas/signin.schema";
+import { ISignUpDTO } from "../../models/Auth";
+import { SignUpSchema } from "../../utils/schemas/signup.schema";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Input, Button } from "../../components";
 import { Container, InputsContainer, Title } from "./styles";
 
-const Login = () => {
-  const { signIn } = useAuth();
+const SignUp = () => {
+  const { signUp } = useAuth();
   const navigate = useNavigate();
   const [isSigning, setIsSigning] = useState(false);
 
-  const { register, handleSubmit, formState } = useForm<ISignInDTO>({
-    resolver: yupResolver(SignInSchema),
+  const { register, handleSubmit, formState } = useForm<ISignUpDTO>({
+    resolver: yupResolver(SignUpSchema),
   });
 
-  const onSubmit = async (data: ISignInDTO) => {
+  const onSubmit = async (data: ISignUpDTO) => {
     console.log(data);
     try {
       setIsSigning(true);
-      await signIn(data);
-      toast.success("Logado com sucesso!");
+      await signUp(data);
+      toast.success("Registrado com sucesso!");
       navigate("/lives", { replace: true });
     } catch (err) {
       setIsSigning(false);
@@ -36,7 +36,12 @@ const Login = () => {
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputsContainer>
-          <Title>Login</Title>
+          <Title>Registrar</Title>
+          <Input
+            label="Nome de usuário"
+            {...register("name")}
+            error={formState.errors.name?.message}
+          />
           <Input
             label="Email"
             {...register("email")}
@@ -46,6 +51,11 @@ const Login = () => {
             label="Senha"
             {...register("password")}
             error={formState.errors.password?.message}
+          />
+          <Input
+            label="Confirmar senha"
+            {...register("confirm_password")}
+            error={formState.errors.confirm_password?.message}
           />
 
           <Button disabled={isSigning} type="submit" expanded>
@@ -57,4 +67,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

@@ -1,20 +1,21 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { IUser } from "../models/User";
-import { ISignInDTO } from "../models/Auth";
+import { ISignInDTO, ISignUpDTO } from "../models/Auth";
 import api from "../services/api";
 import { AuthService } from "../services";
 
 enum StoragePrefix {
-    member = "@streaming-app-tcc:member",
-    token = "@streaming-app-tcc:token",
-    tokenExp = "@streaming-app-tcc:token-exp",
+  member = "@streaming-app-tcc:member",
+  token = "@streaming-app-tcc:token",
+  tokenExp = "@streaming-app-tcc:token-exp",
 }
 
 type AuthContextData = {
-    readonly user: IUser | undefined;
-    isAuthenticated: boolean;
-    signIn: (data: ISignInDTO) => Promise<void>;
-    logout: () => void;
+  readonly user: IUser | undefined;
+  isAuthenticated: boolean;
+  signIn: (data: ISignInDTO) => Promise<void>;
+  signUp: (data: ISignUpDTO) => Promise<void>;
+  logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -38,15 +39,28 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     setIsAuthenticated(!!user);
-  }, [user])
+  }, [user]);
 
-  async function signIn({
-    email,
-    password,
-  }: ISignInDTO) {
+  async function signIn({ email, password }: ISignInDTO) {
     const { data } = await AuthService.signIn({
-    email,
-    password,
+      email,
+      password,
+    });
+
+    localStorage.setItem(StoragePrefix.member, JSON.stringify(data.user));
+    localStorage.setItem(StoragePrefix.token, data.data.token);
+    localStorage.setItem(StoragePrefix.tokenExp, data.data.expires_at);
+
+    api.defaults.headers.common.Authorization = `Bearer ${data.data.token}`;
+
+    setUser(data.user);
+  }
+
+  async function signUp({ name, email, password }: ISignUpDTO) {
+    const { data } = await AuthService.signUp({
+      name,
+      email,
+      password,
     });
 
     localStorage.setItem(StoragePrefix.member, JSON.stringify(data.user));
@@ -84,6 +98,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         user,
         isAuthenticated,
         signIn,
+        signUp,
         logout,
       }}
     >

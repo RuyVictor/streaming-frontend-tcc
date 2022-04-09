@@ -1,6 +1,6 @@
 import { AxiosPromise } from 'axios';
 
-import { ISignInDTO, ISignInData } from '../models/Auth';
+import { ISignInDTO, ISignInData, ISignUpDTO } from '../models/Auth';
 
 import api from './api';
 
@@ -9,7 +9,7 @@ const AuthService = {
     return api.post('/signin', { params: data });
   },
 
-  signUp(data?: ISignInDTO): AxiosPromise<ISignInData> {
+  signUp(data?: ISignUpDTO): AxiosPromise<ISignInData> {
     return api.post('/signup', { params: data });
   },
 };

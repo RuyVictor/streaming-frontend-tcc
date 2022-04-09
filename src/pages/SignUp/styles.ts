@@ -24,7 +24,9 @@ const moveAnimation = keyframes`
 export const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  overflow: auto;
   width: 480px;
+  max-height: 620px;
   padding: 30px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;

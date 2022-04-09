@@ -28,7 +28,11 @@ const Home = () => {
     <Container>
       {streams?.map((stream) => (
         <CardContainer>
-          <ImageCard src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/a4bf14109185029.5fce5f81c4b8f.jpg" />
+          <ImageCard
+          src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/a4bf14109185029.5fce5f81c4b8f.jpg"
+          onClick={() => navigate(stream.name)}
+          
+          />
           <CardInfoContainer>
             <HorizontalContainer>
               <CardTitle>{stream.name}</CardTitle>

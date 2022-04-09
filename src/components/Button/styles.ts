@@ -39,7 +39,10 @@ export const Container = styled.button<InputProps>`
   ${(props) =>
     props.disabled &&
     css`
-        border-width: 2px;
-        border-color: red;
+      opacity: 0.4;
+      :hover {
+        opacity: 0.4;
+      }
+      cursor: not-allowed;
     `}
 `;
