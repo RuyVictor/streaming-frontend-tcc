@@ -1,18 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IMember } from "../models/Member";
+import { IUser } from "../models/User";
 import { ISignInDTO } from "../models/Auth";
 import api from "../services/api";
 import { AuthService } from "../services";
 
 enum StoragePrefix {
-    member = "@viitra-challenge-web:member",
-    token = "@viitra-challenge-web:token",
-    tokenExp = "@viitra-challenge-web:token-exp",
+    member = "@streaming-app-tcc:member",
+    token = "@streaming-app-tcc:token",
+    tokenExp = "@streaming-app-tcc:token-exp",
 }
 
 type AuthContextData = {
-    readonly user: IMember | undefined;
-    signIn: (data: ISignInDTO) => void;
+    readonly user: IUser | undefined;
+    isAuthenticated: boolean;
+    signIn: (data: ISignInDTO) => Promise<void>;
     logout: () => void;
 };
 
@@ -24,7 +25,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const token = localStorage.getItem(StoragePrefix.token);
 
     if (token && userFromStorage) {
-      const user: IMember = JSON.parse(userFromStorage);
+      const user: IUser = JSON.parse(userFromStorage);
 
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
@@ -32,6 +33,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
     return undefined;
   });
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(!!user);
+  }, [user])
 
   async function signIn({
     email,
@@ -75,6 +82,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        isAuthenticated,
         signIn,
         logout,
       }}

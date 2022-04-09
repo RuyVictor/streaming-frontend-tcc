@@ -1,4 +1,4 @@
-import { IMember } from "./Member";
+import { IUser } from "./User";
 
 export interface ISignInDTO {
     email: string;
@@ -11,7 +11,7 @@ export interface ISignUpDTO {
 }
 
 export interface ISignInData {
-    user: IMember;
+    user: IUser;
     data: IToken;
 }
 

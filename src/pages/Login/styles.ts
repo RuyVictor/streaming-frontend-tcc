@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -8,15 +8,29 @@ export const Container = styled.div`
   height: 100%;
 `;
 
+const moveAnimation = keyframes`
+  from { 
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+`;
+
 export const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 450px;
+  width: 480px;
   padding: 30px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   align-items: center;
   gap: 10px;
+  animation-name: ${moveAnimation};
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-duration: 1.3s;
 `;
 
 export const Title = styled.h1`

@@ -8,6 +8,7 @@ export const Container = styled.div`
   padding: 50px;
   background-color: ${({ theme }) => theme.colors.black};
   height: 100%;
+  overflow-y: scroll;
 `;
 
 export const CardContainer = styled.div`
@@ -30,12 +31,17 @@ export const CardInfoContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 20px;
+  padding: 10px 20px;
 `;
 
 export const ImageCard = styled.img`
   width: 100%;
   height: 200px;
+  transition: all 300ms;
+  :hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 `;
 
 export const CardTitle = styled.div`

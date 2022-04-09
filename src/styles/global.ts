@@ -29,6 +29,7 @@ export const GlobalStyle = createGlobalStyle`
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
 
   body, input, button {

@@ -6,16 +6,22 @@ interface InputProps {
 }
 
 export const Container = styled.button<InputProps>`
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 3px;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.black};
-  font-size: 20px;
+  font-size: 18px;
   background-color: ${({ theme }) => theme.colors.yellow};
   transition: all 300ms;
 
   :hover {
     opacity: 0.8;
+  }
+
+  ::after {
+    content: "";
+    background-color: #FFBA10;
+    border-color: black;
   }
 
   ${(props) =>

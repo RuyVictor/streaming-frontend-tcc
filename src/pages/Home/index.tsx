@@ -35,7 +35,7 @@ const Home = () => {
               <CardDescription>{stream.description}</CardDescription>
             </HorizontalContainer>
             <HorizontalContainer>
-              <BsPeopleFill size={25}/>
+              <BsPeopleFill size={20}/>
               {26}
             </HorizontalContainer>
           </CardInfoContainer>

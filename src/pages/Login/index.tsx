@@ -25,7 +25,7 @@ const Login = () => {
     console.log(data);
     try {
       setIsSigning(true);
-      // const result = await AuthService.signIn(data);
+      await signIn(data);
       toast.success("Logado com sucesso!");
       navigate("/home", { replace: true });
     } catch (err) {

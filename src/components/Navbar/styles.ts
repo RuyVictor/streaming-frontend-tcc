@@ -12,8 +12,14 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.yellow};
 `;
 
+export const HorizontalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
 export const Title = styled.span`
-  font-size: 30px;
+  font-size: 25px;
   color: ${({ theme }) => theme.colors.black};
   white-space: nowrap;
 `;
