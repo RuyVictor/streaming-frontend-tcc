@@ -14,11 +14,6 @@ export interface ISignUpDTO {
 
 export interface ISignInData {
     user: IUser;
-    data: IToken;
-}
-
-interface IToken {
-    token: string;
-    expires_at: string;
+    accessToken: string;
     refreshToken: string;
 }

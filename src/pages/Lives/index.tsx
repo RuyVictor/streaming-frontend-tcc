@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../../components/Pagination";
-import { useStream } from "../../hooks/search.hook";
+import { useStream } from "../../hooks/stream.hook";
 import { BsPeopleFill } from "react-icons/bs";
 import {
   Container,
@@ -15,14 +15,15 @@ import {
 
 const Home = () => {
   const navigate = useNavigate();
-  const { handleGetStreams, streams } = useStream();
+  const { handleGetStreams, streams, queryOptions } = useStream();
 
   useEffect(() => {
     handleGetStreams({
-      search_filter: "",
-      page: 1,
+      search_filter: queryOptions.search_filter,
+      page: queryOptions.page,
+      take: queryOptions.take
     });
-  }, []);
+  }, [queryOptions]);
 
   return (
     <Container>

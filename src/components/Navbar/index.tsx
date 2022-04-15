@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth.hook";
-import { useStream } from "../../hooks/search.hook";
+import { useStream } from "../../hooks/stream.hook";
 import Button from "../Button";
 import Input from "../Input";
 import { Container, HorizontalContainer, ProfileName, Title } from "./styles";
@@ -14,7 +14,8 @@ const Navbar = () => {
     <Container>
       <HorizontalContainer>
         <Title>Streaming App</Title>
-        <Button variant="secondary" onClick={() => navigate('/lives')}>Página Inicial</Button>
+        <Button variant="secondary" onClick={() => navigate('/lives')}>Em alta</Button>
+        <Button variant="secondary" onClick={() => navigate('/categories')}>Categorias</Button>
       </HorizontalContainer>
       <Input
         variant="search"
@@ -25,7 +26,6 @@ const Navbar = () => {
             ...prevState,
             search_filter: event.value?.toString() ?? '',
           }))
-          console.log(event.value)
         }}
       />
       <HorizontalContainer>

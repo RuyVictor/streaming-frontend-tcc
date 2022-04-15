@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useStream } from "../../hooks/search.hook";
+import { useStream } from "../../hooks/stream.hook";
 import {
   Container,
   CardTitle,

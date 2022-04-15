@@ -21,22 +21,14 @@ export const StreamProvider: React.FC = ({ children }) => {
     page: 1,
   });
 
-  const handleGetStreams = async ({perpage = 9, ...rest}: ISearchQuery) => {
+  const handleGetStreams = async ({take = 9, ...rest}: ISearchQuery) => {
     try {
-      const response = await StreamService.getStreams({perpage, ...rest});
+      const response = await StreamService.getStreams({take, ...rest});
       setStreams(response);
     } catch (error) {
       toast.error("Ocorreu um problema ao requisitar dados do servidor!");
     }
   };
-
-  useEffect(() => {
-    handleGetStreams({
-      search_filter: queryOptions.search_filter,
-      page: queryOptions.page,
-      perpage: queryOptions.perpage
-    });
-  }, [queryOptions]);
 
   return (
     <StreamContext.Provider

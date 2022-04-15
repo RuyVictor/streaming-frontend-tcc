@@ -5,9 +5,9 @@ import api from "../services/api";
 import { AuthService } from "../services";
 
 enum StoragePrefix {
-  member = "@streaming-app-tcc:member",
-  token = "@streaming-app-tcc:token",
-  tokenExp = "@streaming-app-tcc:token-exp",
+  user = "@streaming-app-tcc:user",
+  accessToken = "@streaming-app-tcc:access-token",
+  refreshToken = "@streaming-app-tcc:refresh-token",
 }
 
 type AuthContextData = {
@@ -22,13 +22,13 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const userFromStorage = localStorage.getItem(StoragePrefix.member);
-    const token = localStorage.getItem(StoragePrefix.token);
+    const userFromStorage = localStorage.getItem(StoragePrefix.user);
+    const accessToken = localStorage.getItem(StoragePrefix.accessToken);
 
-    if (token && userFromStorage) {
+    if (accessToken && userFromStorage) {
       const user: IUser = JSON.parse(userFromStorage);
 
-      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
       return user;
     }
@@ -47,11 +47,11 @@ export const AuthProvider: React.FC = ({ children }) => {
       password,
     });
 
-    localStorage.setItem(StoragePrefix.member, JSON.stringify(data.user));
-    localStorage.setItem(StoragePrefix.token, data.data.token);
-    localStorage.setItem(StoragePrefix.tokenExp, data.data.expires_at);
+    localStorage.setItem(StoragePrefix.user, JSON.stringify(data.user));
+    localStorage.setItem(StoragePrefix.accessToken, data.accessToken);
+    localStorage.setItem(StoragePrefix.refreshToken, data.refreshToken);
 
-    api.defaults.headers.common.Authorization = `Bearer ${data.data.token}`;
+    api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
 
     setUser(data.user);
   }
@@ -63,16 +63,20 @@ export const AuthProvider: React.FC = ({ children }) => {
       password,
     });
 
-    localStorage.setItem(StoragePrefix.member, JSON.stringify(data.user));
-    localStorage.setItem(StoragePrefix.token, data.data.token);
-    localStorage.setItem(StoragePrefix.tokenExp, data.data.expires_at);
+    localStorage.setItem(StoragePrefix.user, JSON.stringify(data.user));
+    localStorage.setItem(StoragePrefix.accessToken, data.accessToken);
+    localStorage.setItem(StoragePrefix.refreshToken, data.refreshToken);
 
-    api.defaults.headers.common.Authorization = `Bearer ${data.data.token}`;
+    api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
 
     setUser(data.user);
   }
 
-  function logout() {
+  async function logout() {
+    const refreshToken = localStorage.getItem(StoragePrefix.refreshToken)!;
+
+    await AuthService.revokeTokens({ refreshToken });
+
     Object.values(StoragePrefix).forEach((item) => {
       localStorage.removeItem(item);
     });
@@ -81,16 +85,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     api.defaults.headers.common.Authorization = "";
   }
-
-  useEffect(() => {
-    const expires_at = localStorage.getItem(StoragePrefix.tokenExp);
-
-    if (expires_at) {
-      const now = new Date();
-      const convertedDate: Date = new Date(expires_at);
-      now >= convertedDate && logout();
-    }
-  }, []);
 
   return (
     <AuthContext.Provider

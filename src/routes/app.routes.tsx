@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../hooks/auth.hook";
-import { Lives, Login, NotFound, SignUp, Stream } from "../pages";
+import { Lives, Categories, Login, NotFound, SignUp, Stream } from "../pages";
 
 interface IProps extends RouteProps {
   element: JSX.Element;
@@ -31,6 +31,10 @@ const AppRoutes = () => {
         <Route path="/lives">
           <Route index element={<Lives />} />
           <Route path=":profileName" element={<Stream />} />
+        </Route>
+        <Route path="/categories">
+          <Route index element={<Categories />} />
+          <Route path=":categoryName" element={<Stream />} />
         </Route>
       </Routes>
     </BrowserRouter>

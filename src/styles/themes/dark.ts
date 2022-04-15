@@ -3,7 +3,7 @@ const dark = {
     background: "#000",
     text: "#fff",
 
-    yellow: "#FFDF22",
+    yellow: "#dbc337",
     white: "#f7f7f7",
     black: "#262626",
   },

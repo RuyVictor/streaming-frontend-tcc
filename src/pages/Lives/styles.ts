@@ -27,6 +27,7 @@ export const CardContainer = styled.div`
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.yellow};
   gap: 10px;
+  max-height: 300px;
   border-radius: 7px;
   overflow: hidden;
   animation-name: ${moveAnimation};
@@ -50,7 +51,8 @@ export const CardInfoContainer = styled.div`
 
 export const ImageCard = styled.img`
   width: 100%;
-  height: 200px;
+  height: 100%;
+  object-fit: cover;
   transition: all 300ms;
   cursor: pointer;
 
