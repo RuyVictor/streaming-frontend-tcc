@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  width: 100%;
   gap: 20px;
   padding: 5px 20px;
+  top: 0;
   justify-content: space-between;
   align-items: center;
   position: sticky;
-  top: 0;
-  width: 100%;
+  z-index: 9999;
   background-color: ${({ theme }) => theme.colors.yellow};
 `;
 

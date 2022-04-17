@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../hooks/auth.hook";
-import { Lives, Categories, Login, NotFound, SignUp, Stream } from "../pages";
+import { Lives, Categories, CategoryLives, Login, NotFound, SignUp, Stream } from "../pages";
 
 interface IProps extends RouteProps {
   element: JSX.Element;
@@ -34,7 +34,7 @@ const AppRoutes = () => {
         </Route>
         <Route path="/categories">
           <Route index element={<Categories />} />
-          <Route path=":categoryName" element={<Stream />} />
+          <Route path=":categoryName" element={<CategoryLives />} />
         </Route>
       </Routes>
     </BrowserRouter>

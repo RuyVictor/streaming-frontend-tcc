@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { BsPeopleFill } from "react-icons/bs";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { MdLiveTv } from "react-icons/md";
 import {
   Container,
   ImageCard,
@@ -20,26 +20,35 @@ import Divider from "../../components/Divider";
 
 const Categories = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
   const {
     handleGetCategories,
     handleGetSubCategories,
-    setQueryOptions,
     isLoading,
     queryOptions,
     categories,
     subCategories,
   } = useCategory();
 
+  const defaultCategory = 'Jogos';
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    // caso acesse diretamente via URL
+    searchParams.get('tag') ??
+    // fallback para caso acesse a apartir de outra página
+    defaultCategory
+  );
+
+  useEffect(() => {
+    const tagParam = searchParams.get('tag');
+    tagParam ? setSelectedCategory(tagParam) : navigate(`?tag=${defaultCategory}`) // categoria padrão
+  }, [location.search]);
+
   useEffect(() => {
     handleGetCategories({
       search_filter: queryOptions.search_filter,
-      page: queryOptions.page,
-      take: queryOptions.take,
-    });
-
-    handleGetSubCategories({
-      search_filter: queryOptions.search_filter,
-      name: queryOptions.name ?? "Jogos",
       page: queryOptions.page,
       take: queryOptions.take,
     });
@@ -48,24 +57,22 @@ const Categories = () => {
   useEffect(() => {
     handleGetSubCategories({
       search_filter: queryOptions.search_filter,
-      name: queryOptions.name ?? "Jogos",
+      name: selectedCategory,
       page: queryOptions.page,
       take: queryOptions.take,
     });
-  }, [queryOptions]);
+  }, [selectedCategory]);
 
   const primaryCategoryList = useMemo(
     () =>
-      categories?.map((category, index) => {
+      categories?.map((category) => {
         return (
           <PrimaryCategoryCardContainer
-            tabIndex={index}
+            key={category.id}
             categoriesLength={categories.length}
+            selected={selectedCategory === category.name}
             onClick={() => {
-              setQueryOptions((prevState) => ({
-                ...prevState,
-                name: category.name,
-              }));
+              navigate(`?tag=${category.name}`);
             }}
           >
             <ImageCard loading="eager" src={category.image} />
@@ -75,20 +82,22 @@ const Categories = () => {
           </PrimaryCategoryCardContainer>
         );
       }),
-    [categories]
+    [categories, selectedCategory]
   );
 
   return (
     <Container>
       <SubTitle>Principais Categorias</SubTitle>
-      <Divider/>
-      <PrimaryCategoriesContainer>{primaryCategoryList}</PrimaryCategoriesContainer>
+      <Divider />
+      <PrimaryCategoriesContainer>
+        {primaryCategoryList}
+      </PrimaryCategoriesContainer>
       <SubTitle>Subcategorias</SubTitle>
-      <Divider/>
+      <Divider />
       {!isLoading ? (
         <GridContainer>
           {subCategories?.map((subCategory) => (
-            <SubCategoriesCardContainer>
+            <SubCategoriesCardContainer key={subCategory.id}>
               <ImageCard
                 loading="eager"
                 src={subCategory.image}
@@ -97,8 +106,8 @@ const Categories = () => {
               <SubCategoryInfoContainer>
                 <CardTitle>{subCategory.name}</CardTitle>
                 <HorizontalContainer>
-                  <BsPeopleFill size={20} />
-                  {26}
+                  <MdLiveTv size={20} />
+                  {subCategory.number_of_streams}
                 </HorizontalContainer>
               </SubCategoryInfoContainer>
             </SubCategoriesCardContainer>

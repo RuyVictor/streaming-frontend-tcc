@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Pagination from "../../components/Pagination";
 import { useStream } from "../../hooks/stream.hook";
 import { BsPeopleFill } from "react-icons/bs";
 import {
@@ -28,20 +27,18 @@ const Home = () => {
   return (
     <Container>
       {streams?.map((stream) => (
-        <CardContainer>
+        <CardContainer key={stream.id} onClick={() => navigate(`/lives/${stream.user.name}`)}>
           <ImageCard
           src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/a4bf14109185029.5fce5f81c4b8f.jpg"
-          onClick={() => navigate(stream.name)}
-          
           />
           <CardInfoContainer>
             <HorizontalContainer>
-              <CardTitle>{stream.name}</CardTitle>
+              <CardTitle>{stream.title}</CardTitle>
               <CardDescription>{stream.description}</CardDescription>
             </HorizontalContainer>
             <HorizontalContainer>
               <BsPeopleFill size={20}/>
-              {26}
+              {stream.spectators}
             </HorizontalContainer>
           </CardInfoContainer>
         </CardContainer>

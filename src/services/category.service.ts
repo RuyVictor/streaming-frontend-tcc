@@ -8,6 +8,10 @@ const CategoryService = {
   getCategories(data: ICategorySearch): AxiosPromise<IPagination<ICategory[]>> {
     return api.get("/category/find", { params: data });
   },
+
+  getOneCategory(name: string): AxiosPromise<ICategory> {
+    return api.get("/category/find-one", { params: { name } });
+  },
 };
 
 export default CategoryService;

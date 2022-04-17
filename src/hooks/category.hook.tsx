@@ -4,7 +4,7 @@ import { ISearchQuery } from "../models/Common/SearchQuery";
 import { toast } from "react-toastify";
 import { IPagination } from "../models/Common/Pagination";
 import { ICategory, ICategorySearch } from "../models/Category";
-
+import { AxiosError } from "axios";
 
 type CategoryContextData = {
   handleGetCategories: (data: ICategorySearch) => void;
@@ -12,45 +12,54 @@ type CategoryContextData = {
   isLoading: boolean;
   categories?: ICategory[];
   subCategories?: ICategory[];
-  queryOptions: ICategorySearch;
+  queryOptions: ISearchQuery;
   setQueryOptions: React.Dispatch<React.SetStateAction<ISearchQuery>>;
 };
 
-const CategoryContext = createContext<CategoryContextData>({} as CategoryContextData);
+const CategoryContext = createContext<CategoryContextData>(
+  {} as CategoryContextData
+);
 
 export const CategoryProvider: React.FC = ({ children }) => {
-
   const [categories, setCategories] = useState<IPagination<ICategory[]>>({
     data: [],
-    total: 0
+    total: 0,
   });
   const [subCategories, setSubCategories] = useState<IPagination<ICategory[]>>({
     data: [],
-    total: 0
+    total: 0,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [queryOptions, setQueryOptions] = useState<ISearchQuery>({
     page: 1,
+    take: 9
   });
 
-  const handleGetCategories = async ({take = 9, ...rest}: ICategorySearch) => {
+  const handleGetCategories = async (data: ICategorySearch) => {
     try {
-      setIsLoading(true)
-      const response = await CategoryService.getCategories({take, ...rest});
+      setIsLoading(true);
+      const response = await CategoryService.getCategories(data);
       setCategories(response.data);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       toast.error("Ocorreu um problema ao requisitar dados do servidor!");
     }
   };
 
-  const handleGetSubCategories = async ({take = 9, ...rest}: ICategorySearch) => {
+  const handleGetSubCategories = async (data: ICategorySearch) => {
     try {
-      setIsLoading(true)
-      const response = await CategoryService.getCategories({take, ...rest});
+      setIsLoading(true);
+      const response = await CategoryService.getCategories(data);
       setSubCategories(response.data);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
+
+      const err = error as AxiosError;
+      if (err.response?.status === 404) {
+        return toast.error("Categoria não encontrada!");
+      }
       toast.error("Ocorreu um problema ao requisitar dados do servidor!");
     }
   };

@@ -5,10 +5,7 @@ export interface ICategory {
     name: string;
     description: string;
     image: string;
-    status: 'active' | 'inactive';
-    spectators?: number;
-    created_at: string;
-    updated_at: string;
+    number_of_streams?: number;
 }
 
 export interface ICategorySearch extends ISearchQuery {

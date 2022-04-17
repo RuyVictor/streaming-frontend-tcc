@@ -1,8 +1,18 @@
+import { ISearchQuery } from "./Common/SearchQuery";
+import { IUser } from "./User";
+
 export interface IStream {
     id: string;
-    name: string;
+    title: string;
     description: string;
-    finished: boolean;
-    expires_at: string;
-    priority: 'low' | 'normal' | 'high' | any;
+    status: string;
+    spectators: number;
+    url: string;
+    user: IUser;
+}
+
+export interface IStreamSearch extends ISearchQuery {
+    title?: string;
+    status?: string;
+    category?: string;
 }
