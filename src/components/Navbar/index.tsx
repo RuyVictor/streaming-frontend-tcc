@@ -21,11 +21,11 @@ const Navbar = () => {
         variant="search"
         width={500}
         onSearch={(event) => {
-          navigate('/lives')
           setQueryOptions((prevState) => ({
             ...prevState,
-            search_filter: event.value?.toString() ?? '',
+            title: event.value?.toString() ?? '',
           }))
+          navigate('/lives')
         }}
       />
       <HorizontalContainer>

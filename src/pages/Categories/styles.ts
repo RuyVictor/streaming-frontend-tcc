@@ -29,7 +29,6 @@ export const Container = styled.div`
   gap: 10px;
   padding: 10px 50px;
   background-color: ${({ theme }) => theme.colors.black};
-  height: 100%;
 `;
 
 export const GridContainer = styled.div`
@@ -38,7 +37,6 @@ export const GridContainer = styled.div`
   grid-auto-rows: min-content;
   grid-gap: 20px;
   height: 100%;
-  overflow-y: scroll;
 `;
 
 export const PrimaryCategoriesContainer = styled.div`
@@ -84,7 +82,6 @@ export const SubCategoriesCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.yellow};
-  max-height: 170px;
   border-radius: 7px;
   overflow: hidden;
   animation-name: ${moveAnimation(undefined, '50px')};
@@ -120,7 +117,6 @@ export const ImageCard = styled.img`
   height: 100%;
   transition: all 300ms;
   object-fit: cover;
-  cursor: pointer;
 
   ${SubCategoriesCardContainer}:hover & {
     opacity: 0.9;

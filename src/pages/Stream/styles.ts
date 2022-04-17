@@ -51,18 +51,3 @@ export const HorizontalContainer = styled.div`
   align-items: center;
   gap: 10px;
 `;
-
-export const CardTitle = styled.div`
-  font-size: 20px;
-  color: ${({ theme }) => theme.colors.black};
-`;
-
-export const CardDescription = styled.div`
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 15px;
-  color: ${({ theme }) => theme.colors.black};
-`;

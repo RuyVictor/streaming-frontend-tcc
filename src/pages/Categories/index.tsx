@@ -48,7 +48,6 @@ const Categories = () => {
 
   useEffect(() => {
     handleGetCategories({
-      search_filter: queryOptions.search_filter,
       page: queryOptions.page,
       take: queryOptions.take,
     });
@@ -56,7 +55,6 @@ const Categories = () => {
 
   useEffect(() => {
     handleGetSubCategories({
-      search_filter: queryOptions.search_filter,
       name: selectedCategory,
       page: queryOptions.page,
       take: queryOptions.take,
@@ -97,11 +95,55 @@ const Categories = () => {
       {!isLoading ? (
         <GridContainer>
           {subCategories?.map((subCategory) => (
-            <SubCategoriesCardContainer key={subCategory.id}>
+            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
               <ImageCard
                 loading="eager"
                 src={subCategory.image}
-                onClick={() => navigate(subCategory.name)}
+              />
+              <SubCategoryInfoContainer>
+                <CardTitle>{subCategory.name}</CardTitle>
+                <HorizontalContainer>
+                  <MdLiveTv size={20} />
+                  {subCategory.number_of_streams}
+                </HorizontalContainer>
+              </SubCategoryInfoContainer>
+            </SubCategoriesCardContainer>
+          ))}
+          {subCategories?.map((subCategory) => (
+            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
+              <ImageCard
+                loading="eager"
+                src={subCategory.image}
+              />
+              <SubCategoryInfoContainer>
+                <CardTitle>{subCategory.name}</CardTitle>
+                <HorizontalContainer>
+                  <MdLiveTv size={20} />
+                  {subCategory.number_of_streams}
+                </HorizontalContainer>
+              </SubCategoryInfoContainer>
+            </SubCategoriesCardContainer>
+          ))}
+          {subCategories?.map((subCategory) => (
+            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
+              <ImageCard
+                loading="eager"
+                src={subCategory.image}
+              />
+              <SubCategoryInfoContainer>
+                <CardTitle>{subCategory.name}</CardTitle>
+                <HorizontalContainer>
+                  <MdLiveTv size={20} />
+                  {subCategory.number_of_streams}
+                </HorizontalContainer>
+              </SubCategoryInfoContainer>
+            </SubCategoriesCardContainer>
+          ))}
+          {subCategories?.map((subCategory) => (
+            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
+              <ImageCard
+                loading="eager"
+                src={subCategory.image}
               />
               <SubCategoryInfoContainer>
                 <CardTitle>{subCategory.name}</CardTitle>

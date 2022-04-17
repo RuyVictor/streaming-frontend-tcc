@@ -10,26 +10,19 @@ export const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 62.5%; /* 1rem = 10px */
-    height: 100%;
-
     @media (min-width: 1981px) {
       font-size: 80%;
     };
   }
 
+  #root, body, html {
+    height: 100%;
+  }
+
   body {
-    background: #ffffff;
-    color: #000000;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  body, #root {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
   }
 
   body, input, button {
@@ -48,8 +41,6 @@ export const GlobalStyle = createGlobalStyle`
     border: 0;
     transition: 180ms ease-in-out;
   }
-
-  .DayPickerInput-Overlay { z-index: 99; }
 
   button {
     cursor: pointer;

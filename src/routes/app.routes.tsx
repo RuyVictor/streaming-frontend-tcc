@@ -7,7 +7,15 @@ import {
 } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../hooks/auth.hook";
-import { Lives, Categories, CategoryLives, Login, NotFound, SignUp, Stream } from "../pages";
+import {
+  Lives,
+  Categories,
+  CategoryLives,
+  Login,
+  NotFound,
+  SignUp,
+  Stream,
+} from "../pages";
 
 interface IProps extends RouteProps {
   element: JSX.Element;
@@ -16,7 +24,7 @@ interface IProps extends RouteProps {
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
-  function PrivateRoute({element}: IProps) {
+  function PrivateRoute({ element }: IProps) {
     return isAuthenticated ? element : <Navigate to="/signin" replace />;
   }
 
@@ -26,11 +34,17 @@ const AppRoutes = () => {
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Navigate to="/lives" replace />} />
-        <Route path="/signin" element={!isAuthenticated ? <Login /> : <Navigate to="/" replace />} />
-        <Route path="/signup" element={!isAuthenticated ? <SignUp /> : <Navigate to="/" replace />} />
+        <Route
+          path="/signin"
+          element={!isAuthenticated ? <Login /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/signup"
+          element={!isAuthenticated ? <SignUp /> : <Navigate to="/" replace />}
+        />
         <Route path="/lives">
           <Route index element={<Lives />} />
-          <Route path=":profileName" element={<Stream />} />
+          <Route path=":streamHost" element={<Stream />} />
         </Route>
         <Route path="/categories">
           <Route index element={<Categories />} />
