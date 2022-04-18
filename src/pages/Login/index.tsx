@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 import { Input, Button } from "../../components";
 import { Container, InputsContainer, Title } from "./styles";
+import { AxiosError } from "axios";
 
 const Login = () => {
   const { signIn } = useAuth();
@@ -20,14 +21,17 @@ const Login = () => {
   });
 
   const onSubmit = async (data: ISignInDTO) => {
-    console.log(data);
     try {
       setIsSigning(true);
       await signIn(data);
       toast.success("Logado com sucesso!");
       navigate("/lives", { replace: true });
-    } catch (err) {
+    } catch (error) {
       setIsSigning(false);
+      const err = error as AxiosError;
+      if (err.response?.status === 403) {
+        return toast.error("Usuário ou senha incorretos!");
+      }
       toast.error("Erro ao fazer login!");
     }
   };

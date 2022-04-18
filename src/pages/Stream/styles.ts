@@ -35,7 +35,9 @@ export const VideoContainer = styled.div`
 
 export const StreamInfoContainer = styled.div`
   display: flex;
-  padding: 10px 10px;
+  align-items: center;
+  height: 80px;
+  padding-inline: 20px;
   background-color: ${({ theme }) => theme.colors.yellow};
 `;
 

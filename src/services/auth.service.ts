@@ -17,8 +17,8 @@ const AuthService = {
     return api.post('/auth/refresh-token', data);
   },
 
-  revokeTokens(data?: Omit<ISignInData, 'user' | 'accessToken'>): AxiosPromise<void> {
-    return api.post('/auth/revoke-token', data);
+  revokeTokens(data?: Omit<ISignInData, 'user'>): AxiosPromise<void> {
+    return api.post('/auth/revoke-tokens', data);
   },
 };
 

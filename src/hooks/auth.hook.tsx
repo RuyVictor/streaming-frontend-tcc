@@ -73,17 +73,20 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function logout() {
-    const refreshToken = localStorage.getItem(StoragePrefix.refreshToken)!;
+    const accessToken = localStorage.getItem(StoragePrefix.accessToken);
+    const refreshToken = localStorage.getItem(StoragePrefix.refreshToken);
 
-    await AuthService.revokeTokens({ refreshToken });
-
-    Object.values(StoragePrefix).forEach((item) => {
-      localStorage.removeItem(item);
-    });
-
-    setUser(undefined);
-
-    api.defaults.headers.common.Authorization = "";
+    if (accessToken && refreshToken) {
+      await AuthService.revokeTokens({ accessToken, refreshToken });
+  
+      Object.values(StoragePrefix).forEach((item) => {
+        localStorage.removeItem(item);
+      });
+  
+      setUser(undefined);
+  
+      api.defaults.headers.common.Authorization = "";
+    }
   }
 
   return (

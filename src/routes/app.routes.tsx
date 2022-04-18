@@ -50,6 +50,7 @@ const AppRoutes = () => {
           <Route index element={<Categories />} />
           <Route path=":categoryName" element={<CategoryLives />} />
         </Route>
+        <Route path="/my-panel" element={<Stream />} />
       </Routes>
     </BrowserRouter>
   );
