@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 70px);
+  background-color: ${({ theme }) => theme.colors.black};
+  padding: 50px;
+`;
+
+export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(38vh, 1fr));
   grid-auto-rows: min-content;
   grid-gap: 20px;
-  padding: 50px;
-  background-color: ${({ theme }) => theme.colors.black};
-  height: 100%;
-  overflow-y: scroll;
 `;
 
 export const HorizontalContainer = styled.div`

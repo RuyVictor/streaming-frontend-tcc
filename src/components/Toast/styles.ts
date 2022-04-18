@@ -12,5 +12,4 @@ export const StyledToast = styled(ToastContainer)`
   }.Toastify__toast--error {
     background: 'rgb(255, 102, 102)';
   }
-  z-index: 9999;
 `;

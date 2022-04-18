@@ -12,7 +12,7 @@ export interface IStream {
 }
 
 export interface IStreamSearch extends ISearchQuery {
-    title?: string;
+    query?: string;
     status?: string;
     category?: string;
 }

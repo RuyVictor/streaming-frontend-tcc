@@ -18,7 +18,7 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 20px;
   padding: 10px 50px;
-  height: 100%;
+  height: calc(100% - 70px);
   background-color: ${({ theme }) => theme.colors.black};
 `;
 

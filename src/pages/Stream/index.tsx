@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoadingIndicator, VideoPlayer } from "../../components";
-import { Container, VideoContainer, ChatContainer } from "./styles";
+import { Container, VideoContainer, ChatContainer, StreamInfoContainer, VerticalContainer, StreamTitle, StreamHost } from "./styles";
 import { IStream } from "../../models/Stream";
 import { StreamService } from "../../services";
 import { AxiosError } from "axios";
@@ -38,6 +38,12 @@ const Stream = () => {
     <Container>
       <VideoContainer>
         <VideoPlayer src={stream?.url!} />
+        <StreamInfoContainer>
+          <VerticalContainer>
+            <StreamTitle>{stream?.title}</StreamTitle>
+            <StreamHost>{stream?.user.name}</StreamHost>
+          </VerticalContainer>
+        </StreamInfoContainer>
       </VideoContainer>
       <ChatContainer></ChatContainer>
     </Container>

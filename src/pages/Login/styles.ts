@@ -5,7 +5,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.black};
-  height: 100%;
+  height: calc(100% - 70px);
   padding: 30px;
   overflow-y: hidden;
 `;

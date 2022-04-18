@@ -23,7 +23,7 @@ const Navbar = () => {
         onSearch={(event) => {
           setQueryOptions((prevState) => ({
             ...prevState,
-            title: event.value?.toString() ?? '',
+            query: event.value?.toString() ?? '',
           }))
           navigate('/lives')
         }}

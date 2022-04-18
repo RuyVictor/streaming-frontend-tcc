@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import { CategoryService } from "../../services";
 import { AxiosError } from "axios";
 import StreamCard from "../../components/StreamCard";
+import { Nothing } from "../../components";
 
 const CategoryLives = () => {
   const navigate = useNavigate();
@@ -46,7 +47,6 @@ const CategoryLives = () => {
 
   useEffect(() => {
     handleGetStreams({
-      title: queryOptions.title,
       category: selectedCategory?.name,
       page: queryOptions.page,
       take: queryOptions.take,
@@ -68,16 +68,15 @@ const CategoryLives = () => {
             {selectedCategory?.name}
           </CategoryThumbnailTitle>
           <CategoryThumbnailSubTitle>
-            Espectadores: {selectedCategory?.number_of_streams}
+            Streams ativas: {selectedCategory?.number_of_streams}
           </CategoryThumbnailSubTitle>
         </CategoryThumbnailInfoContainer>
       </CategoryThumbnailContainer>
       <Divider />
       {!isLoading ? (
         <GridContainer>{streamsList}</GridContainer>
-      ) : (
-        <LoadingIndicator />
-      )}
+      ) : <LoadingIndicator />}
+      {(streams?.length === 0 && !isLoading) && <Nothing>Há um grande vazio por aqui...</Nothing>}
     </Container>
   );
 };

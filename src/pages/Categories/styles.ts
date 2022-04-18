@@ -26,6 +26,7 @@ export const SubTitle = styled.span`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: calc(100% - 70px);
   gap: 10px;
   padding: 10px 50px;
   background-color: ${({ theme }) => theme.colors.black};

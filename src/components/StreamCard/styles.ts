@@ -19,6 +19,7 @@ const moveAnimation = keyframes`
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.yellow};
   border-radius: 7px;
+  max-width: 300px;
   overflow: hidden;
   animation-name: ${moveAnimation};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);

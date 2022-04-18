@@ -109,51 +109,6 @@ const Categories = () => {
               </SubCategoryInfoContainer>
             </SubCategoriesCardContainer>
           ))}
-          {subCategories?.map((subCategory) => (
-            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
-              <ImageCard
-                loading="eager"
-                src={subCategory.image}
-              />
-              <SubCategoryInfoContainer>
-                <CardTitle>{subCategory.name}</CardTitle>
-                <HorizontalContainer>
-                  <MdLiveTv size={20} />
-                  {subCategory.number_of_streams}
-                </HorizontalContainer>
-              </SubCategoryInfoContainer>
-            </SubCategoriesCardContainer>
-          ))}
-          {subCategories?.map((subCategory) => (
-            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
-              <ImageCard
-                loading="eager"
-                src={subCategory.image}
-              />
-              <SubCategoryInfoContainer>
-                <CardTitle>{subCategory.name}</CardTitle>
-                <HorizontalContainer>
-                  <MdLiveTv size={20} />
-                  {subCategory.number_of_streams}
-                </HorizontalContainer>
-              </SubCategoryInfoContainer>
-            </SubCategoriesCardContainer>
-          ))}
-          {subCategories?.map((subCategory) => (
-            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
-              <ImageCard
-                loading="eager"
-                src={subCategory.image}
-              />
-              <SubCategoryInfoContainer>
-                <CardTitle>{subCategory.name}</CardTitle>
-                <HorizontalContainer>
-                  <MdLiveTv size={20} />
-                  {subCategory.number_of_streams}
-                </HorizontalContainer>
-              </SubCategoryInfoContainer>
-            </SubCategoriesCardContainer>
-          ))}
         </GridContainer>
       ) : (
         <LoadingIndicator />
