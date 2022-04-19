@@ -69,7 +69,7 @@ const Input = forwardRef(
             </Button>
           )}
         </InputWrapper>
-        <WarningMessage>{error}</WarningMessage>
+        {error && <WarningMessage>{error}</WarningMessage>}
       </Container>
     );
   }

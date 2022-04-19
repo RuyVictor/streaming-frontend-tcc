@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, InputsContainer } from "./styles";
+import { Container, Description, InputsContainer } from "./styles";
 import { IEditStreamDTO, IStream } from "../../../models/Stream";
 import { CategoryService, StreamService } from "../../../services";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Button, Input, Select } from "../../../components";
+import { Alert, Button, Input, Select } from "../../../components";
 import { EditStreamSchema } from "../../../utils/schemas/edit-stream.schema";
 import { useAuth } from "../../../hooks/auth.hook";
 import { ICategory } from "../../../models/Category";
@@ -41,9 +41,19 @@ const EditStreamInfo: FC = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const { register, handleSubmit, formState } = useForm<IEditStreamDTO>({
+  const { register, handleSubmit, reset, formState } = useForm<IEditStreamDTO>({
     resolver: yupResolver(EditStreamSchema),
   });
+
+  useEffect(() => {
+    if (stream) {
+      reset({
+        title: stream.title,
+        description: stream.description,
+        category: stream.category?.id,
+      });
+    }
+  }, [stream]);
 
   const onSubmit = async (data: IEditStreamDTO) => {
     try {
@@ -59,43 +69,43 @@ const EditStreamInfo: FC = () => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <InputsContainer>
-          {/* <Title>Registrar</Title> */}
-          <Input
-            label="Título"
-            defaultValue={stream?.title}
-            {...register("title")}
-            error={formState.errors.title?.message}
-          />
-          <Input
-            label="Descrição"
-            defaultValue={stream?.description}
-            {...register("description")}
-            error={formState.errors.description?.message}
-          />
+      {!isLoading ? (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <InputsContainer>
+            <Alert>Para começar a fazer transmissão, é necessário pelo menos um título e a categoria</Alert>
+            <Input
+              label="Título"
+              {...register("title")}
+              error={formState.errors.title?.message}
+            />
+            <Input
+              label="Descrição"
+              {...register("description")}
+              error={formState.errors.description?.message}
+            />
 
-          <Select
-            label="Categoria"
-            defaultValue={stream?.category?.id}
-            options={categories?.map((value) => ({
-              id: value.id,
-              label: value.name,
-            }))}
-            {...register("category")}
-            error={formState.errors.category?.message}
-          />
+            <Select
+              label="Categoria"
+              style={{width: 200}}
+              options={categories?.map((value) => ({
+                id: value.id,
+                label: value.name,
+              }))}
+              {...register("category")}
+              error={formState.errors.category?.message}
+            />
 
-          <Button
-            variant="secondary"
-            disabled={isEditing}
-            type="submit"
-            expanded
-          >
-            Editar
-          </Button>
-        </InputsContainer>
-      </form>
+            <Button
+              variant="secondary"
+              disabled={isEditing}
+              type="submit"
+              expanded
+            >
+              Editar
+            </Button>
+          </InputsContainer>
+        </form>
+      ) : null}
     </Container>
   );
 };

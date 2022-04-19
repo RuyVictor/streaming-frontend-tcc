@@ -13,8 +13,8 @@ export const Container = styled.div`
   font-size: 10px;
   margin: auto auto;
   text-indent: -9999em;
-  width: 11em;
-  height: 11em;
+  width: 9em;
+  height: 9em;
   border-radius: 50%;
   background: ${({ theme }) => theme.colors.yellow};
   background: linear-gradient(to right,  ${({ theme }) => theme.colors.yellow} 10%, rgba(255, 255, 255, 0) 42%);

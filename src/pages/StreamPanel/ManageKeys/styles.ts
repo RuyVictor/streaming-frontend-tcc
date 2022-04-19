@@ -32,18 +32,9 @@ export const InputsContainer = styled.div`
   max-width: 1000px;
 `;
 
-export const Description = styled.div`
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.black};
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.white};
-  opacity: 0.8;
-`;
-
 export const HorizontalContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
 `;
 

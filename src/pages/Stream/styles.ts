@@ -21,42 +21,6 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 
-export const VideoContainer = styled.div`
-  flex: 1;
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-  background-color: ${({ theme }) => theme.colors.yellow};
-  animation-name: ${moveAnimation('200px')};
-  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-  animation-duration: 1s;
-`;
-
-export const StreamInfoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 80px;
-  padding-inline: 20px;
-  background-color: ${({ theme }) => theme.colors.yellow};
-`;
-
-export const StreamTitle = styled.p`
-  font-size: 18px;
-  color: ${({ theme }) => theme.colors.black};
-`;
-
-export const StreamDescription = styled.p`
-  font-size: 15px;
-  color: ${({ theme }) => theme.colors.black};
-`;
-
-export const StreamHost = styled.p`
-  font-size: 15px;
-  color: ${({ theme }) => theme.colors.black};
-`;
-
 export const ChatContainer = styled.div`
   display: flex;
   width: 400px;

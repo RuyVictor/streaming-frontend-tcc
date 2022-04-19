@@ -5,20 +5,29 @@ interface IProps extends InputHTMLAttributes<HTMLSelectElement> {
   label?: string;
   error?: string;
   disabled?: boolean;
-  options?: { id: string, label: string }[];
+  options?: { id: string; label: string }[];
 }
 
-const Select = forwardRef(({ label, error, disabled, options, ...rest }: IProps, ref: any) => (
-  <Container >
-    <Label>{label}</Label>
-    <SelectContainer ref={ref} error={!!error} disabled={disabled} {...rest}>
-      <option value="" selected disabled hidden>Escolha aqui</option>
-      {options?.map((option) => (
-        <option key={option.id} value={option.id}>{option.label}</option>
-      ))}
-    </SelectContainer>
-    <WarningMessage>{error}</WarningMessage>
-  </Container>
-));
+const Select = forwardRef(
+  (
+    { label, error, disabled, options, ...rest }: IProps,
+    ref: any
+  ) => (
+    <Container>
+      <Label>{label}</Label>
+      <SelectContainer ref={ref} error={!!error} disabled={disabled} {...rest}>
+        <option value="" disabled hidden>
+          Escolha aqui
+        </option>
+        {options?.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.label}
+          </option>
+        ))}
+      </SelectContainer>
+      <WarningMessage>{error}</WarningMessage>
+    </Container>
+  )
+);
 
 export default Select;

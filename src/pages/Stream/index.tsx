@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoadingIndicator, VideoPlayer } from "../../components";
-import { Container, VideoContainer, ChatContainer, StreamInfoContainer, VerticalContainer, StreamTitle, StreamHost } from "./styles";
+import { Container, ChatContainer } from "./styles";
 import { IStream } from "../../models/Stream";
 import { StreamService } from "../../services";
 import { AxiosError } from "axios";
@@ -17,12 +17,12 @@ const Stream = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const response = await StreamService.getOneStream(params.streamHost!);
         setStream(response.data);
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (error) {
-        setIsLoading(false)
+        setIsLoading(false);
         const err = error as AxiosError;
         navigate(-1);
         if (err.response?.status === 404) {
@@ -36,15 +36,7 @@ const Stream = () => {
 
   return (
     <Container>
-      <VideoContainer>
-        {stream && <VideoPlayer stream={stream!} />}
-        <StreamInfoContainer>
-          <VerticalContainer>
-            <StreamTitle>{stream?.title}</StreamTitle>
-            <StreamHost>{stream?.user.name}</StreamHost>
-          </VerticalContainer>
-        </StreamInfoContainer>
-      </VideoContainer>
+      {stream && <VideoPlayer stream={stream!} />}
       <ChatContainer></ChatContainer>
     </Container>
   );

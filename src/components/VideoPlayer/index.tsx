@@ -6,7 +6,7 @@ import "videojs-flvjs-es6";
 import "videojs-fetch-flv";
 // import 'videojs-fetch-flv/dist/videojs-fetch-flv.css'
 import "video.js/dist/video-js.css";
-import { Container, Video } from "./styles";
+import { WrapperContainer, Video, VideoContainer, StreamInfoContainer, VerticalContainer, StreamTitle, StreamHost } from "./styles";
 import { IStream } from "../../models/Stream";
 
 interface IVideoPlayerProps {
@@ -54,9 +54,17 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
   }, [stream]);
 
   return (
-    <Container inactive={stream.status === "inactive"}>
-      {stream.status !== "inactive" ? <Video ref={videoNode} className="video-js" /> : <span>Stream Offline</span>}
-    </Container>
+    <VideoContainer>
+      <WrapperContainer inactive={stream.status === "inactive"}>
+        {stream.status !== "inactive" ? <Video ref={videoNode} /> : <span>Stream Offline</span>}
+      </WrapperContainer>
+      <StreamInfoContainer>
+        <VerticalContainer>
+          <StreamTitle>{stream?.title}</StreamTitle>
+          <StreamHost>{stream?.user.name}</StreamHost>
+        </VerticalContainer>
+      </StreamInfoContainer>
+    </VideoContainer>
   );
 };
 

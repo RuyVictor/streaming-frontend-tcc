@@ -7,6 +7,7 @@ export { default as LoadingIndicator } from './LoadingIndicator';
 export { default as Nothing } from './Nothing';
 export { default as Navbar } from './Navbar';
 export { default as Dropdown } from './Dropdown';
+export { default as Alert } from './Alert';
 export { default as Pagination } from './Pagination';
 export { default as StreamCard } from './StreamCard';
 export { default as VideoPlayer } from './VideoPlayer';

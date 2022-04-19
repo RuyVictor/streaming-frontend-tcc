@@ -3,13 +3,9 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { LoadingIndicator, VideoPlayer } from "../../components";
 import {
   Container,
-  VideoContainer,
   MenuContainer,
-  StreamInfoContainer,
-  VerticalContainer,
-  StreamTitle,
-  StreamHost,
   MenuItem,
+  FixedWidthContainer,
 } from "./styles";
 import { IStream } from "../../models/Stream";
 import { StreamService } from "../../services";
@@ -17,6 +13,7 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth.hook";
 import EditStreamInfo from "./EditStreamInfo";
+import ManageKeys from "./ManageKeys";
 
 const StreamPanel = () => {
   const navigate = useNavigate();
@@ -28,11 +25,11 @@ const StreamPanel = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const items = [
-    "Painel",
-    "Informações da transmissão",
-    "Chave de transmissão",
+    {label: "Painel", index: 0},
+    {label: "Informações da transmissão", index: 1},
+    {label: "Gerenciar chaves", index: 2},
   ];
-  const defaultOption = items[0];
+  const defaultOption = items[0].label;
 
   const [selectedOption, setSelectedOption] = useState(
     searchParams.get("option") ?? defaultOption
@@ -70,25 +67,22 @@ const StreamPanel = () => {
       <MenuContainer>
         {items.map((item) => (
           <MenuItem
-            selected={selectedOption === item}
-            onClick={() => navigate(`?option=${item}`)}
+            key={item.index}
+            selected={selectedOption === item.label}
+            onClick={() => navigate(`?option=${item.label}`)}
           >
-            {item}
+            {item.label}
           </MenuItem>
         ))}
       </MenuContainer>
-      {selectedOption === items[0] ? (
-        <VideoContainer>
+      {selectedOption === items[0].label ? (
+        <FixedWidthContainer>
           {stream && <VideoPlayer stream={stream!} />}
-          <StreamInfoContainer>
-            <VerticalContainer>
-              <StreamTitle>{stream?.title}</StreamTitle>
-              <StreamHost>{stream?.user.name}</StreamHost>
-            </VerticalContainer>
-          </StreamInfoContainer>
-        </VideoContainer>
-      ) : selectedOption === items[1] ? (
-        <EditStreamInfo />
+        </FixedWidthContainer>
+      ) : selectedOption === items[1].label ? (
+        <FixedWidthContainer><EditStreamInfo /></FixedWidthContainer>
+      ) : selectedOption === items[2].label ? (
+        <FixedWidthContainer><ManageKeys /></FixedWidthContainer>
       ) : null}
     </Container>
   );

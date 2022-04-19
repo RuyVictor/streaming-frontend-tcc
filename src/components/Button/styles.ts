@@ -7,7 +7,7 @@ interface InputProps {
 
 export const Container = styled.button<InputProps>`
   padding: 5px 20px;
-  border-radius: 3px;
+  border-radius: 5px;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.black};
   font-size: 18px;
