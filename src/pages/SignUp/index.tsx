@@ -20,7 +20,6 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: ISignUpDTO) => {
-    console.log(data);
     try {
       setIsSigning(true);
       await signUp(data);

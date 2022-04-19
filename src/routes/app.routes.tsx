@@ -15,6 +15,7 @@ import {
   NotFound,
   SignUp,
   Stream,
+  StreamPanel,
 } from "../pages";
 
 interface IProps extends RouteProps {
@@ -50,7 +51,7 @@ const AppRoutes = () => {
           <Route index element={<Categories />} />
           <Route path=":categoryName" element={<CategoryLives />} />
         </Route>
-        <Route path="/my-panel" element={<Stream />} />
+        <Route path="/my-panel" element={<StreamPanel />} />
       </Routes>
     </BrowserRouter>
   );

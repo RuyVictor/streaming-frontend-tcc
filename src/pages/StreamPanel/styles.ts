@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from "styled-components";
 
 const moveAnimation = (pixelDistance: string) => keyframes`
   from { 
@@ -10,6 +10,10 @@ const moveAnimation = (pixelDistance: string) => keyframes`
     transform: translateY(0px);
   }
 `;
+
+interface IProps {
+  selected: boolean;
+}
 
 export const Container = styled.div`
   display: flex;
@@ -24,12 +28,13 @@ export const Container = styled.div`
 export const VideoContainer = styled.div`
   flex: 1;
   border-radius: 10px;
+  max-width: 1000px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
   background-color: ${({ theme }) => theme.colors.yellow};
-  animation-name: ${moveAnimation('200px')};
+  animation-name: ${moveAnimation("200px")};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-duration: 1s;
 `;
@@ -38,7 +43,6 @@ export const StreamInfoContainer = styled.div`
   display: flex;
   align-items: center;
   height: 80px;
-  padding-inline: 20px;
   background-color: ${({ theme }) => theme.colors.yellow};
 `;
 
@@ -57,17 +61,38 @@ export const StreamHost = styled.p`
   color: ${({ theme }) => theme.colors.black};
 `;
 
-export const ChatContainer = styled.div`
+export const MenuContainer = styled.div`
   display: flex;
-  width: 400px;
-  height: 100%;
-  padding: 20px;
+  flex-direction: column;
+  height: min-content;
+  gap: 2px;
+  width: 300px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.yellow};
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-  animation-name: ${moveAnimation('-200px')};
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+  animation-name: ${moveAnimation("-200px")};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-duration: 1s;
+`;
+
+export const MenuItem = styled.div<IProps>`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 10px;
+  font-size: 20px;
+  background-color: ${({ theme }) => theme.colors.yellow};
+  color: ${({ theme }) => theme.colors.black};
+  transition: all 300ms;
+  cursor: pointer;
+  user-select: none;
+
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: ${({ theme }) => theme.colors.white};
+    `}
 `;
 
 export const HorizontalContainer = styled.div`

@@ -70,7 +70,11 @@ const Categories = () => {
             categoriesLength={categories.length}
             selected={selectedCategory === category.name}
             onClick={() => {
-              navigate(`?tag=${category.name}`);
+              if (JSON.parse(category.have_subcategories!)) {
+                navigate(`?tag=${category.name}`);
+              } else {
+                navigate(category.name)
+              }
             }}
           >
             <ImageCard loading="eager" src={category.image} />

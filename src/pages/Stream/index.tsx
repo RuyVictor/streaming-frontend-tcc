@@ -37,7 +37,7 @@ const Stream = () => {
   return (
     <Container>
       <VideoContainer>
-        <VideoPlayer src={stream?.url!} />
+        {stream && <VideoPlayer stream={stream!} />}
         <StreamInfoContainer>
           <VerticalContainer>
             <StreamTitle>{stream?.title}</StreamTitle>

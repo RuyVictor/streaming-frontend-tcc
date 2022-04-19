@@ -5,3 +5,4 @@ export { default as Lives } from './Lives';
 export { default as Categories } from './Categories';
 export { default as CategoryLives } from './CategoryLives';
 export { default as Stream } from './Stream';
+export { default as StreamPanel } from './StreamPanel';

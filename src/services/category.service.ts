@@ -9,6 +9,10 @@ const CategoryService = {
     return api.get("/category/find", { params: data });
   },
 
+  getSelectableCategories(): AxiosPromise<IPagination<ICategory[]>> {
+    return api.get("/category/selectable");
+  },
+
   getOneCategory(name: string): AxiosPromise<ICategory> {
     return api.get("/category/find-one", { params: { name } });
   },

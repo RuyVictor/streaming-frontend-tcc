@@ -5,6 +5,7 @@ export interface ICategory {
     name: string;
     description: string;
     image: string;
+    have_subcategories?: string;
     number_of_streams?: number;
 }
 

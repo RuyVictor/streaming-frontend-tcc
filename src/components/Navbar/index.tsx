@@ -36,7 +36,7 @@ const Navbar = () => {
           navigate("/lives");
         }}
       />
-      <HorizontalContainer style={{justifyContent: 'flex-end'}}>
+      <HorizontalContainer style={{ justifyContent: "flex-end" }}>
         {isAuthenticated ? (
           <Dropdown
             isOpen={modalOpen}
@@ -49,8 +49,17 @@ const Navbar = () => {
               </ProfileName>
             }
             links={[
-              { element: <span>Meu painel</span>, onClick: () => navigate('/my-panel') },
-              { element: <span>Sair</span>, onClick: logout },
+              {
+                element: <span>Meu painel</span>,
+                onClick: () => navigate("/my-panel"),
+              },
+              {
+                element: <span>Sair</span>,
+                onClick: () => {
+                  logout();
+                  navigate("/", { replace: true });
+                },
+              },
             ]}
           />
         ) : (

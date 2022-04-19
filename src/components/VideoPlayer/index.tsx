@@ -7,12 +7,13 @@ import "videojs-fetch-flv";
 // import 'videojs-fetch-flv/dist/videojs-fetch-flv.css'
 import "video.js/dist/video-js.css";
 import { Container, Video } from "./styles";
+import { IStream } from "../../models/Stream";
 
 interface IVideoPlayerProps {
-  src: string;
+  stream: IStream;
 }
 
-const VideoPlayer: React.FC<IVideoPlayerProps> = ({ src }) => {
+const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
   const initialOptions: videojs.PlayerOptions = {
     controls: true,
     controlBar: {
@@ -22,7 +23,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ src }) => {
     },
     sources: [
       {
-        src: src,
+        src: stream.url,
         type: "video/flv",
       },
     ],
@@ -38,7 +39,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ src }) => {
   const player = React.useRef<videojs.Player>();
 
   React.useEffect(() => {
-    if (src) {
+    if (stream.status !== "inactive") {
       player.current = videojs(videoNode.current as any, initialOptions).ready(
         function () {
           this.play();
@@ -50,10 +51,12 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ src }) => {
         }
       };
     }
-  }, [src]);
+  }, [stream]);
 
   return (
-    <Container><Video ref={videoNode} className="video-js" /></Container>
+    <Container inactive={stream.status === "inactive"}>
+      {stream.status !== "inactive" ? <Video ref={videoNode} className="video-js" /> : <span>Stream Offline</span>}
+    </Container>
   );
 };
 
