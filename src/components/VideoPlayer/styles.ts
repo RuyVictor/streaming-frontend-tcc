@@ -15,54 +15,51 @@ const moveAnimation = (pixelDistance: string) => keyframes`
   }
 `;
 
-export const VideoContainer = styled.div`
+export const Container = styled.div`
   border-radius: 10px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  overflow: hidden;
+  flex: 1;
+  max-width: 1000px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-  background-color: ${({ theme }) => theme.colors.yellow};
+  // background-color: ${({ theme }) => theme.colors.yellow};
   animation-name: ${moveAnimation('200px')};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-duration: 1s;
 `;
 
-export const StreamInfoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 80px;
-  padding-inline: 20px;
-  background-color: ${({ theme }) => theme.colors.yellow};
-`;
-
 export const WrapperContainer = styled.div<IProps>`
-  display: flex;
   position: relative;
-  height: 100%;
-
-  span {
-    position: absolute;
-    text-align: center;
-    z-index: 3;
-    font-size: 50px;
-    color: ${({ theme }) => theme.colors.yellow};
-  }
 
   ${(props) =>
     props.inactive &&
     css`
+      aspect-ratio: 16 /9;
       z-index: 2;
       align-items: center;
       justify-content: center;
       background-color: ${({ theme }) => theme.colors.black};
     `}
+  
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    z-index: 3;
+    font-size: 50px;
+    color: ${({ theme }) => theme.colors.yellow};
+  }
 `;
 
-export const Video = styled.video`
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
+export const StreamInfoContainer = styled.div`
+  display: flex;
+  height: 70px;
+  align-items: center;
+  padding-inline: 20px;
+  background-color: ${({ theme }) => theme.colors.yellow};
 `;
 
 export const StreamTitle = styled.p`

@@ -26,7 +26,8 @@ export const Container = styled.div`
 `;
 
 export const FixedWidthContainer = styled.div`
-  min-width: 1000px;
+  max-width: 1000px;
+  width: 100%;
 `;
 
 export const MenuContainer = styled.div`

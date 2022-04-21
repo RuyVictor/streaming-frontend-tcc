@@ -4,7 +4,7 @@ import { ISignInDTO, ISignUpDTO } from "../models/Auth";
 import api from "../services/api";
 import { AuthService } from "../services";
 
-enum StoragePrefix {
+export enum StoragePrefix {
   user = "@streaming-app-tcc:user",
   accessToken = "@streaming-app-tcc:access-token",
   refreshToken = "@streaming-app-tcc:refresh-token",

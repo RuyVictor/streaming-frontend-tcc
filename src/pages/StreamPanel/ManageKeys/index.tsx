@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Container,
   HorizontalContainer,
@@ -10,8 +9,6 @@ import { toast } from "react-toastify";
 import { Alert, Button, Input, LoadingIndicator } from "../../../components";
 
 const ManageKeys: FC = () => {
-  const navigate = useNavigate();
-
   const [transmissionKey, setTransmissionKey] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

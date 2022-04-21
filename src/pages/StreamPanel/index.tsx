@@ -75,15 +75,15 @@ const StreamPanel = () => {
           </MenuItem>
         ))}
       </MenuContainer>
-      {selectedOption === items[0].label ? (
-        <FixedWidthContainer>
-          {stream && <VideoPlayer stream={stream!} />}
-        </FixedWidthContainer>
-      ) : selectedOption === items[1].label ? (
-        <FixedWidthContainer><EditStreamInfo /></FixedWidthContainer>
-      ) : selectedOption === items[2].label ? (
-        <FixedWidthContainer><ManageKeys /></FixedWidthContainer>
-      ) : null}
+      <FixedWidthContainer>
+        {selectedOption === items[0].label ? (
+          <VideoPlayer stream={stream} />
+        ) : selectedOption === items[1].label ? (
+          <EditStreamInfo />
+        ) : selectedOption === items[2].label ? (
+          <ManageKeys />
+        ) : null}
+      </FixedWidthContainer>
     </Container>
   );
 };

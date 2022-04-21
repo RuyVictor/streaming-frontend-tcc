@@ -60,7 +60,7 @@ const EditStreamInfo: FC = () => {
       setIsEditing(true);
       await StreamService.editStream(data);
       toast.success("Editado com sucesso!");
-      navigate("-1");
+      navigate("?option=Painel");
     } catch (err) {
       setIsEditing(false);
       toast.error("Erro ao editar a stream!");

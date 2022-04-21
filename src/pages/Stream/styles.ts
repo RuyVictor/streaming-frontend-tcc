@@ -14,10 +14,10 @@ const moveAnimation = (pixelDistance: string) => keyframes`
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+  height: calc(100% - 70px);
   gap: 20px;
   padding: 20px;
   background-color: ${({ theme }) => theme.colors.black};
-  height: calc(100% - 70px);
   overflow: hidden;
 `;
 
@@ -36,8 +36,10 @@ export const ChatContainer = styled.div`
 
 export const HorizontalContainer = styled.div`
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
 `;
 
 export const VerticalContainer = styled.div`

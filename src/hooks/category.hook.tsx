@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { CategoryService } from "../services";
 import { ISearchQuery } from "../models/Common/SearchQuery";
 import { toast } from "react-toastify";

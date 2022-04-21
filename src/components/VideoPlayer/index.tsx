@@ -1,62 +1,57 @@
-import * as React from "react";
-import videojs from "video.js";
+import { useEffect, useRef } from "react";
+import { ReactFlvPlayer } from "react-flv-player";
 
 // Styles
-import "videojs-flvjs-es6";
-import "videojs-fetch-flv";
-// import 'videojs-fetch-flv/dist/videojs-fetch-flv.css'
-import "video.js/dist/video-js.css";
-import { WrapperContainer, Video, VideoContainer, StreamInfoContainer, VerticalContainer, StreamTitle, StreamHost } from "./styles";
+import {
+  WrapperContainer,
+  Container,
+  StreamInfoContainer,
+  VerticalContainer,
+  StreamTitle,
+  StreamHost,
+} from "./styles";
 import { IStream } from "../../models/Stream";
 
 interface IVideoPlayerProps {
-  stream: IStream;
+  stream?: IStream;
 }
 
 const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
-  const initialOptions: videojs.PlayerOptions = {
-    controls: true,
-    controlBar: {
-      volumePanel: {
-        inline: false,
-      },
-    },
-    sources: [
-      {
-        src: stream.url,
-        type: "video/flv",
-      },
-    ],
-    autoplay: true,
-    plugins: {
-      fetchFlv: {
-        isLive: true,
-        cors: true,
-      },
-    },
-  };
-  const videoNode = React.useRef<HTMLVideoElement>(null);
-  const player = React.useRef<videojs.Player>();
+  const videoRef = useRef<any>(null);
 
-  React.useEffect(() => {
-    if (stream.status !== "inactive") {
-      player.current = videojs(videoNode.current as any, initialOptions).ready(
-        function () {
-          this.play();
+  useEffect(() => {
+    let loadedVideo: HTMLVideoElement;
+
+    async function playVideo() {
+      if (stream && videoRef?.current) {
+        const video = videoRef?.current?.myRef.current as HTMLVideoElement;
+        loadedVideo = video;
+        await new Promise((r) => setTimeout(r, 1000));
+        video.muted = false;
+        try {
+          await video.play();
+        } catch(err) {
         }
-      );
-      return () => {
-        if (player.current) {
-          player.current.dispose();
-        }
-      };
+      }
     }
+
+    playVideo()
   }, [stream]);
 
   return (
-    <VideoContainer>
-      <WrapperContainer inactive={stream.status === "inactive"}>
-        {stream.status !== "inactive" ? <Video ref={videoNode} /> : <span>Stream Offline</span>}
+    <Container>
+      <WrapperContainer inactive={stream?.status === "inactive"}>
+        {stream && stream?.status !== "inactive" ? (
+          <ReactFlvPlayer
+            ref={videoRef}
+            url={stream?.url}
+            isMuted={false}
+            isLive={true}
+            enableStashBuffer={true}
+          />
+        ) : (
+          <span>Stream Offline</span>
+        )}
       </WrapperContainer>
       <StreamInfoContainer>
         <VerticalContainer>
@@ -64,7 +59,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
           <StreamHost>{stream?.user.name}</StreamHost>
         </VerticalContainer>
       </StreamInfoContainer>
-    </VideoContainer>
+    </Container>
   );
 };
 
