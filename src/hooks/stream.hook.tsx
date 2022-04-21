@@ -3,10 +3,12 @@ import { StreamService } from "../services";
 import { IStreamSearch } from "../models/Stream";
 import { IStream } from "../models/Stream";
 import { toast } from "react-toastify";
+import { IPagination } from "../models/Common/Pagination";
 
 
 type StreamContextData = {
-  streams?: IStream[];
+  streams?: IPagination<IStream[]>;
+  setStreams: React.Dispatch<React.SetStateAction<IPagination<IStream[]>>>;
   queryOptions: IStreamSearch;
   isLoading: boolean;
   setQueryOptions: React.Dispatch<React.SetStateAction<IStreamSearch>>;
@@ -18,7 +20,10 @@ const StreamContext = createContext<StreamContextData>({} as StreamContextData);
 export const StreamProvider: React.FC = ({ children }) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [streams, setStreams] = useState<IStream[]>();
+  const [streams, setStreams] = useState<IPagination<IStream[]>>({
+    data: [],
+    total: 0
+  });
   const [queryOptions, setQueryOptions] = useState<IStreamSearch>({
     page: 1,
     take: 9
@@ -28,7 +33,7 @@ export const StreamProvider: React.FC = ({ children }) => {
     try {
       setIsLoading(true)
       const response = await StreamService.getStreams(data);
-      setStreams(response.data.data);
+      setStreams(response.data);
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
@@ -43,6 +48,7 @@ export const StreamProvider: React.FC = ({ children }) => {
         queryOptions,
         isLoading,
         setQueryOptions,
+        setStreams,
         streams
       }}
     >

@@ -19,7 +19,6 @@ const moveAnimation = keyframes`
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.yellow};
   border-radius: 7px;
-  max-width: 300px;
   overflow: hidden;
   animation-name: ${moveAnimation};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -30,7 +29,7 @@ export const Container = styled.div`
 export const HorizontalContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 `;
 
 export const VerticalContainer = styled.div`
@@ -67,6 +66,14 @@ export const Title = styled.p`
 export const UserName = styled.p`
   font-size: 12px;
   color: ${({ theme }) => theme.colors.black};
+`;
+
+export const Category = styled.p`
+  font-size: 12px;
+  padding: 0px 3px;
+  border-radius: 3px;
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Description = styled.p`

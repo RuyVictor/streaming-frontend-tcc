@@ -59,3 +59,15 @@ export const WarningMessage = styled.span`
   color: red;
   font-size: 14px;
 `;
+
+export const MaxLengthMessage = styled.span`
+  margin-left: auto;
+  color: ${({ theme }) => theme.colors.black};
+  font-size: 14px;
+`;
+
+export const HorizontalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;

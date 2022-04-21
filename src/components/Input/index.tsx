@@ -1,12 +1,14 @@
-import React, { InputHTMLAttributes, forwardRef, useRef } from "react";
+import React, { InputHTMLAttributes, forwardRef, useRef, useState, useEffect } from "react";
 import { IconType } from "react-icons";
 import { BsSearch } from "react-icons/bs";
 import Button from "../Button";
 import {
   Container,
+  HorizontalContainer,
   InputContainer,
   InputWrapper,
   Label,
+  MaxLengthMessage,
   WarningMessage,
 } from "./styles";
 
@@ -27,6 +29,8 @@ const Input = forwardRef(
       disabled = false,
       label,
       width,
+      maxLength,
+      defaultValue,
       leftIcon,
       rightIcon,
       variant = "normal",
@@ -37,7 +41,34 @@ const Input = forwardRef(
     }: InputProps,
     ref: any
   ) => {
-    const inputRef = useRef<React.InputHTMLAttributes<HTMLInputElement>>();
+
+    function useCombinedRefs(...refs: any) {
+      const targetRef = React.useRef()
+    
+      React.useEffect(() => {
+        refs.forEach((ref: any) => {
+          if (!ref) return
+    
+          if (typeof ref === 'function') {
+            ref(targetRef.current)
+          } else {
+            ref.current = targetRef.current
+          }
+        })
+      }, [refs])
+    
+      return targetRef
+    }
+
+    const inputRef = useRef<React.InputHTMLAttributes<HTMLInputElement>>(ref);
+    const combinedRef = useCombinedRefs(ref, inputRef)
+
+    const [inputLength, setInputLength] = useState(0);
+
+    useEffect(() => {
+      const typedCombinedRef = combinedRef.current as unknown as React.InputHTMLAttributes<HTMLInputElement>;
+      setInputLength(typedCombinedRef?.value?.toString().length ?? 0)
+    }, [ref])
 
     return (
       <Container style={{width: width}}>
@@ -49,8 +80,10 @@ const Input = forwardRef(
         >
           {variant === "search" ? <BsSearch /> : leftIcon}
           <InputContainer
-            ref={ref ?? inputRef}
+            ref={combinedRef as any}
             {...rest}
+            maxLength={maxLength}
+            onChange={(event) => setInputLength(event.target.value.length)}
             onKeyUp={(event) => {
               if (event.key === "Enter" && onSearch) {
                 onSearch(inputRef.current!);
@@ -69,7 +102,10 @@ const Input = forwardRef(
             </Button>
           )}
         </InputWrapper>
-        {error && <WarningMessage>{error}</WarningMessage>}
+        <HorizontalContainer>
+          {error && <WarningMessage>{error}</WarningMessage>}
+          {maxLength && <MaxLengthMessage>{inputLength + "/" + maxLength}</MaxLengthMessage>}
+        </HorizontalContainer>
       </Container>
     );
   }

@@ -54,10 +54,17 @@ export const WrapperContainer = styled.div<IProps>`
   }
 `;
 
+export const HorizontalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 export const StreamInfoContainer = styled.div`
   display: flex;
   height: 70px;
   align-items: center;
+  gap: 10px;
   padding-inline: 20px;
   background-color: ${({ theme }) => theme.colors.yellow};
 `;
@@ -74,6 +81,7 @@ export const StreamDescription = styled.p`
 
 export const StreamHost = styled.p`
   font-size: 15px;
+  margin-inline: 20px;
   color: ${({ theme }) => theme.colors.black};
 `;
 

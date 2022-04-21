@@ -80,6 +80,10 @@ const Categories = () => {
             <ImageCard loading="eager" src={category.image} />
             <CategoryInfoContainer>
               <CardTitle>{category.name}</CardTitle>
+              <HorizontalContainer>
+                <MdLiveTv size={20} />
+                {category.number_of_streams}
+              </HorizontalContainer>
             </CategoryInfoContainer>
           </PrimaryCategoryCardContainer>
         );

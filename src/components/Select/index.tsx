@@ -25,7 +25,7 @@ const Select = forwardRef(
           </option>
         ))}
       </SelectContainer>
-      <WarningMessage>{error}</WarningMessage>
+      {error && <WarningMessage>{error}</WarningMessage>}
     </Container>
   )
 );

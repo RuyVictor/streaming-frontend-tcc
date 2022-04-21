@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { IStream } from '../../models/Stream';
-import { Container, Description, HorizontalContainer, ImageCard, InfoContainer, Title, UserName, VerticalContainer } from './styles';
+import { Category, Container, Description, HorizontalContainer, ImageCard, InfoContainer, Title, UserName, VerticalContainer } from './styles';
 
 interface IProps {
     stream: IStream;
@@ -23,7 +23,10 @@ const StreamCard: FC<IProps> = ({
           <InfoContainer>
             <VerticalContainer>
               <Title>{stream.title}</Title>
-              <UserName>{stream.user.name}</UserName>
+              <HorizontalContainer>
+                <UserName>{stream.user.name}</UserName>
+                <Category>{stream.category?.name}</Category>
+              </HorizontalContainer>
             </VerticalContainer>
             <HorizontalContainer>
                 <BsPeopleFill size={20}/>

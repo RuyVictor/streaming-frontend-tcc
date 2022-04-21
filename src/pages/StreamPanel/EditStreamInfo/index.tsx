@@ -43,6 +43,13 @@ const EditStreamInfo: FC = () => {
 
   const { register, handleSubmit, reset, formState } = useForm<IEditStreamDTO>({
     resolver: yupResolver(EditStreamSchema),
+    defaultValues: useMemo(() => {
+      return {
+        title: stream?.title,
+        description: stream?.description,
+        category: stream?.category?.id,
+      }
+    }, [stream])
   });
 
   useEffect(() => {
@@ -75,11 +82,13 @@ const EditStreamInfo: FC = () => {
             <Alert>Para começar a fazer transmissão, é necessário pelo menos um título e a categoria</Alert>
             <Input
               label="Título"
+              maxLength={40}
               {...register("title")}
               error={formState.errors.title?.message}
             />
             <Input
               label="Descrição"
+              maxLength={40}
               {...register("description")}
               error={formState.errors.description?.message}
             />

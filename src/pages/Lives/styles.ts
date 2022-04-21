@@ -10,7 +10,7 @@ export const Container = styled.div`
 
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(38vh, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(33vh, 1fr));
   grid-auto-rows: min-content;
   grid-gap: 20px;
 `;

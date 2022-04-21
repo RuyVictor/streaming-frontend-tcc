@@ -9,6 +9,8 @@ import {
   VerticalContainer,
   StreamTitle,
   StreamHost,
+  StreamDescription,
+  HorizontalContainer,
 } from "./styles";
 import { IStream } from "../../models/Stream";
 
@@ -55,8 +57,11 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
       </WrapperContainer>
       <StreamInfoContainer>
         <VerticalContainer>
-          <StreamTitle>{stream?.title}</StreamTitle>
           <StreamHost>{stream?.user.name}</StreamHost>
+        </VerticalContainer>
+        <VerticalContainer>
+          <StreamTitle>{stream?.title}</StreamTitle>
+          <StreamDescription>{stream?.description}</StreamDescription>
         </VerticalContainer>
       </StreamInfoContainer>
     </Container>

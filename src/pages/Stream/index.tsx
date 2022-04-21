@@ -23,9 +23,9 @@ const Stream = () => {
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        const err = error as AxiosError;
         navigate(-1);
-        if (err.response?.status === 404) {
+        const err = error as AxiosError;
+        if (err.response?.status === 404 || err.response?.status === 500) {
           return toast.error("Stream não encontrada!");
         }
         toast.error("Ocorreu um problema ao requisitar dados do servidor!");

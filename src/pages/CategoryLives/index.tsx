@@ -55,7 +55,7 @@ const CategoryLives = () => {
 
   const streamsList = useMemo(
     () =>
-      streams?.map((stream) => <StreamCard key={stream.id} stream={stream}/>),
+      streams?.data?.map((stream) => <StreamCard key={stream.id} stream={stream}/>),
     [streams]
   );
 
@@ -76,7 +76,7 @@ const CategoryLives = () => {
       {!isLoading ? (
         <GridContainer>{streamsList}</GridContainer>
       ) : <LoadingIndicator />}
-      {(streams?.length === 0 && !isLoading) && <Nothing>Há um grande vazio por aqui...</Nothing>}
+      {(streams?.data?.length === 0 && !isLoading) && <Nothing>Há um grande vazio por aqui...</Nothing>}
     </Container>
   );
 };

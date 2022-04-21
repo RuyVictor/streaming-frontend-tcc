@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useStream } from "../../hooks/stream.hook";
 import {
-  Container,
+  Container, GridContainer,
 } from "./styles";
 import StreamCard from "../../components/StreamCard";
 import { Nothing } from "../../components";
 
 const Home = () => {
-  const { handleGetStreams, streams, queryOptions, isLoading } = useStream();
+  const { handleGetStreams, streams, setStreams, queryOptions, isLoading } = useStream();
 
   useEffect(() => {
     handleGetStreams({
@@ -16,12 +16,20 @@ const Home = () => {
       take: queryOptions.take
     });
 
+    return () => {
+      setStreams({})
+    }
+
   }, [queryOptions]);
+
+  
 
   return (
     <Container>
-      {streams?.map((stream) => <StreamCard key={stream.id} stream={stream}/>)}
-      {(streams?.length === 0 && !isLoading) && <Nothing>Há um grande vazio por aqui...</Nothing>}
+      <GridContainer>
+        {streams?.data?.map((stream) => <StreamCard key={stream.id} stream={stream}/>)}
+      </GridContainer>
+      {(streams?.data?.length === 0 && !isLoading) && <Nothing>Há um grande vazio por aqui...</Nothing>}
     </Container>
   );
 };
