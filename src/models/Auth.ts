@@ -16,4 +16,5 @@ export interface ISignInData {
     user: IUser;
     accessToken: string;
     refreshToken: string;
+    refreshTokenExp: number;
 }

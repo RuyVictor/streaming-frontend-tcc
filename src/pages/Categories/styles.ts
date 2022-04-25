@@ -54,6 +54,7 @@ export const PrimaryCategoryCardContainer = styled.div<IProps>`
   height: 100px;
   border-radius: 7px;
   overflow: hidden;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
   animation-name: ${moveAnimation('-20px', undefined)};
   animation-timing-function: ease-out;
   animation-fill-mode: both;
@@ -85,6 +86,7 @@ export const SubCategoriesCardContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.yellow};
   border-radius: 7px;
   overflow: hidden;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
   animation-name: ${moveAnimation(undefined, '50px')};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-duration: 1s;

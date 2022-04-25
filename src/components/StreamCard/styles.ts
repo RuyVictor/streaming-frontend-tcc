@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
+import ReactHlsPlayer from 'react-hls-player/dist';
 
 interface InputProps {
   disabled: boolean;
@@ -20,6 +21,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.yellow};
   border-radius: 7px;
   overflow: hidden;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
   animation-name: ${moveAnimation};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-duration: 1s;
@@ -44,7 +46,7 @@ export const InfoContainer = styled.div`
   padding: 10px 16px;
 `;
 
-export const ImageCard = styled.img`
+export const ImageCard = styled(ReactHlsPlayer)`
   width: 100%;
   object-fit: cover;
   transition: all 300ms;
@@ -72,6 +74,7 @@ export const Category = styled.p`
   font-size: 12px;
   padding: 0px 3px;
   border-radius: 3px;
+  opacity: 0.8;
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
 `;

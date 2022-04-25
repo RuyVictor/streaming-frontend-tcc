@@ -8,6 +8,7 @@ export enum StoragePrefix {
   user = "@streaming-app-tcc:user",
   accessToken = "@streaming-app-tcc:access-token",
   refreshToken = "@streaming-app-tcc:refresh-token",
+  refreshTokenExp = "@streaming-app-tcc:refresh-token-exp",
 }
 
 type AuthContextData = {
@@ -50,6 +51,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem(StoragePrefix.user, JSON.stringify(data.user));
     localStorage.setItem(StoragePrefix.accessToken, data.accessToken);
     localStorage.setItem(StoragePrefix.refreshToken, data.refreshToken);
+    localStorage.setItem(StoragePrefix.refreshTokenExp, String(data.refreshTokenExp));
 
     api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
 
@@ -66,6 +68,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem(StoragePrefix.user, JSON.stringify(data.user));
     localStorage.setItem(StoragePrefix.accessToken, data.accessToken);
     localStorage.setItem(StoragePrefix.refreshToken, data.refreshToken);
+    localStorage.setItem(StoragePrefix.refreshTokenExp, String(data.refreshTokenExp));
 
     api.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
 
@@ -88,6 +91,16 @@ export const AuthProvider: React.FC = ({ children }) => {
       api.defaults.headers.common.Authorization = "";
     }
   }
+
+  useEffect(() => {
+    const expires_at = localStorage.getItem(StoragePrefix.refreshTokenExp);
+
+    if (expires_at) {
+      if (Date.now() >= parseInt(expires_at) * 1000) {
+        logout();
+      }
+    }
+  }, []);
 
   return (
     <AuthContext.Provider

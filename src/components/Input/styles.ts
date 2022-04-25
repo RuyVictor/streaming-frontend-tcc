@@ -10,7 +10,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 10px;
+  gap: 5px;
 `;
 
 export const InputWrapper = styled.div<InputProps>`
@@ -63,7 +63,7 @@ export const WarningMessage = styled.span`
 export const MaxLengthMessage = styled.span`
   margin-left: auto;
   color: ${({ theme }) => theme.colors.black};
-  font-size: 14px;
+  font-size: 12px;
 `;
 
 export const HorizontalContainer = styled.div`

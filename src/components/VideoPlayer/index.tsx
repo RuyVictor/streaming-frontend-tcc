@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { ReactFlvPlayer } from "react-flv-player";
+import ReactHlsPlayer from 'react-hls-player';
 
 // Styles
 import {
@@ -10,7 +11,6 @@ import {
   StreamTitle,
   StreamHost,
   StreamDescription,
-  HorizontalContainer,
 } from "./styles";
 import { IStream } from "../../models/Stream";
 
@@ -21,13 +21,11 @@ interface IVideoPlayerProps {
 const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
   const videoRef = useRef<any>(null);
 
-  useEffect(() => {
-    let loadedVideo: HTMLVideoElement;
-
+  /* useEffect(() => {
     async function playVideo() {
       if (stream && videoRef?.current) {
         const video = videoRef?.current?.myRef.current as HTMLVideoElement;
-        loadedVideo = video;
+        console.log(videoRef)
         await new Promise((r) => setTimeout(r, 1000));
         video.muted = false;
         try {
@@ -38,18 +36,19 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
     }
 
     playVideo()
-  }, [stream]);
+  }, []); */
 
   return (
     <Container>
       <WrapperContainer inactive={stream?.status === "inactive"}>
         {stream && stream?.status !== "inactive" ? (
-          <ReactFlvPlayer
-            ref={videoRef}
-            url={stream?.url}
-            isMuted={false}
-            isLive={true}
-            enableStashBuffer={true}
+          <ReactHlsPlayer
+            src={stream?.url}
+            playerRef={videoRef}
+            autoPlay={true}
+            controls={true}
+            width="100%"
+            height="auto"
           />
         ) : (
           <span>Stream Offline</span>

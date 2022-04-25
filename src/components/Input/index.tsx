@@ -1,4 +1,10 @@
-import React, { InputHTMLAttributes, forwardRef, useRef, useState, useEffect } from "react";
+import React, {
+  InputHTMLAttributes,
+  forwardRef,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import { IconType } from "react-icons";
 import { BsSearch } from "react-icons/bs";
 import Button from "../Button";
@@ -41,43 +47,39 @@ const Input = forwardRef(
     }: InputProps,
     ref: any
   ) => {
-
     function useCombinedRefs(...refs: any) {
-      const targetRef = React.useRef()
-    
+      const targetRef = React.useRef();
+
       React.useEffect(() => {
         refs.forEach((ref: any) => {
-          if (!ref) return
-    
-          if (typeof ref === 'function') {
-            ref(targetRef.current)
+          if (!ref) return;
+
+          if (typeof ref === "function") {
+            ref(targetRef.current);
           } else {
-            ref.current = targetRef.current
+            ref.current = targetRef.current;
           }
-        })
-      }, [refs])
-    
-      return targetRef
+        });
+      }, [refs]);
+
+      return targetRef;
     }
 
     const inputRef = useRef<React.InputHTMLAttributes<HTMLInputElement>>(ref);
-    const combinedRef = useCombinedRefs(ref, inputRef)
+    const combinedRef = useCombinedRefs(ref, inputRef);
 
     const [inputLength, setInputLength] = useState(0);
 
     useEffect(() => {
-      const typedCombinedRef = combinedRef.current as unknown as React.InputHTMLAttributes<HTMLInputElement>;
-      setInputLength(typedCombinedRef?.value?.toString().length ?? 0)
-    }, [ref])
+      const typedCombinedRef =
+        combinedRef.current as unknown as React.InputHTMLAttributes<HTMLInputElement>;
+      setInputLength(typedCombinedRef?.value?.toString().length ?? 0);
+    }, [ref]);
 
     return (
-      <Container style={{width: width}}>
+      <Container style={{ width: width }}>
         <Label>{label}</Label>
-        <InputWrapper
-          variant={variant}
-          disabled={disabled}
-          error={!!error}
-        >
+        <InputWrapper variant={variant} disabled={disabled} error={!!error}>
           {variant === "search" ? <BsSearch /> : leftIcon}
           <InputContainer
             ref={combinedRef as any}
@@ -102,10 +104,12 @@ const Input = forwardRef(
             </Button>
           )}
         </InputWrapper>
-        <HorizontalContainer>
-          {error && <WarningMessage>{error}</WarningMessage>}
-          {maxLength && <MaxLengthMessage>{inputLength + "/" + maxLength}</MaxLengthMessage>}
-        </HorizontalContainer>
+        {(error || maxLength) && (
+          <HorizontalContainer>
+            <WarningMessage>{error}</WarningMessage>
+            <MaxLengthMessage>{inputLength + "/" + maxLength}</MaxLengthMessage>
+          </HorizontalContainer>
+        )}
       </Container>
     );
   }
