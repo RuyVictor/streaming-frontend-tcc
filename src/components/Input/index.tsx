@@ -106,8 +106,8 @@ const Input = forwardRef(
         </InputWrapper>
         {(error || maxLength) && (
           <HorizontalContainer>
-            <WarningMessage>{error}</WarningMessage>
-            <MaxLengthMessage>{inputLength + "/" + maxLength}</MaxLengthMessage>
+            {error && <WarningMessage>{error}</WarningMessage>}
+            {maxLength && <MaxLengthMessage>{inputLength + "/" + maxLength}</MaxLengthMessage>}
           </HorizontalContainer>
         )}
       </Container>

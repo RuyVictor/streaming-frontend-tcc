@@ -45,6 +45,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
           <ReactHlsPlayer
             src={stream?.url}
             playerRef={videoRef}
+            disablePictureInPicture
             autoPlay={true}
             controls={true}
             width="100%"
