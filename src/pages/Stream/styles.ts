@@ -21,19 +21,6 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 
-export const ChatContainer = styled.div`
-  display: flex;
-  width: 400px;
-  height: 100%;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.yellow};
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-  animation-name: ${moveAnimation('-200px')};
-  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-  animation-duration: 1s;
-`;
-
 export const HorizontalContainer = styled.div`
   display: flex;
   align-items: flex-start;

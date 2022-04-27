@@ -37,6 +37,12 @@ export const InputWrapper = styled.div<InputProps>`
     css`  
       border: 2px solid red;
     `}
+
+  ${(props) =>
+    props.disabled &&
+    css`  
+      pointer-events: none;
+    `}
 `;
 
 export const InputContainer = styled.input`

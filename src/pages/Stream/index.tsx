@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { LoadingIndicator, VideoPlayer } from "../../components";
-import { Container, ChatContainer, HorizontalContainer } from "./styles";
+import { Chat, VideoPlayer } from "../../components";
+import { Container, HorizontalContainer } from "./styles";
 import { IStream } from "../../models/Stream";
 import { StreamService } from "../../services";
 import { AxiosError } from "axios";
@@ -23,7 +23,7 @@ const Stream = () => {
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        navigate(-1);
+        navigate("/404");
         const err = error as AxiosError;
         if (err.response?.status === 404 || err.response?.status === 500) {
           return toast.error("Stream não encontrada!");
@@ -38,7 +38,7 @@ const Stream = () => {
     <Container>
       <HorizontalContainer>
         <VideoPlayer stream={stream} />
-        <ChatContainer></ChatContainer>
+        <Chat stream={stream} />
       </HorizontalContainer>
     </Container>
   );

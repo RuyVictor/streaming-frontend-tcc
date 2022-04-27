@@ -11,4 +11,5 @@ export { default as Alert } from './Alert';
 export { default as Pagination } from './Pagination';
 export { default as StreamCard } from './StreamCard';
 export { default as VideoPlayer } from './VideoPlayer';
+export { default as Chat } from './Chat';
 export { default as Toast } from './Toast';

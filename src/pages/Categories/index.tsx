@@ -105,7 +105,7 @@ const Categories = () => {
           {subCategories?.map((subCategory) => (
             <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
               <ImageCard
-                loading="eager"
+                loading="lazy"
                 src={subCategory.image}
               />
               <SubCategoryInfoContainer>

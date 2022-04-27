@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Description, InputsContainer } from "./styles";
 import { IEditStreamDTO, IStream } from "../../../models/Stream";
 import { CategoryService, StreamService } from "../../../services";
@@ -48,8 +48,8 @@ const EditStreamInfo: FC = () => {
         title: stream?.title,
         description: stream?.description,
         category: stream?.category?.id,
-      }
-    }, [stream])
+      };
+    }, [stream]),
   });
 
   useEffect(() => {
@@ -68,6 +68,7 @@ const EditStreamInfo: FC = () => {
       await StreamService.editStream(data);
       toast.success("Editado com sucesso!");
       navigate("?option=Painel");
+      window.location.reload();
     } catch (err) {
       setIsEditing(false);
       toast.error("Erro ao editar a stream!");
@@ -79,7 +80,10 @@ const EditStreamInfo: FC = () => {
       {!isLoading ? (
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputsContainer>
-            <Alert>Para começar a fazer transmissão, é necessário pelo menos um título e a categoria</Alert>
+            <Alert>
+              Para começar a fazer transmissão, é necessário pelo menos um
+              título e a categoria
+            </Alert>
             <Input
               label="Título"
               maxLength={40}
@@ -95,7 +99,7 @@ const EditStreamInfo: FC = () => {
 
             <Select
               label="Categoria"
-              style={{width: 200}}
+              style={{ width: 200 }}
               options={categories?.map((value) => ({
                 id: value.id,
                 label: value.name,

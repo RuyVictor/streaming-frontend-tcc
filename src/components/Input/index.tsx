@@ -43,6 +43,7 @@ const Input = forwardRef(
       onSearch,
       error,
       children,
+      onChange,
       ...rest
     }: InputProps,
     ref: any
@@ -73,7 +74,7 @@ const Input = forwardRef(
     useEffect(() => {
       const typedCombinedRef =
         combinedRef.current as unknown as React.InputHTMLAttributes<HTMLInputElement>;
-      setInputLength(typedCombinedRef?.value?.toString().length ?? 0);
+        setInputLength(typedCombinedRef?.value?.toString().length ?? 0);
     }, [ref]);
 
     return (
@@ -85,7 +86,9 @@ const Input = forwardRef(
             ref={combinedRef as any}
             {...rest}
             maxLength={maxLength}
-            onChange={(event) => setInputLength(event.target.value.length)}
+            onChange={(event) => {
+              onChange!(event);
+              setInputLength(event.target.value.length) }}
             onKeyUp={(event) => {
               if (event.key === "Enter" && onSearch) {
                 onSearch(inputRef.current!);
