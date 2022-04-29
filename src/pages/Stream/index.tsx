@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Chat, VideoPlayer } from "../../components";
+import { Chat, LoadingIndicator, VideoPlayer } from "../../components";
 import { Container, HorizontalContainer } from "./styles";
 import { IStream } from "../../models/Stream";
 import { StreamService } from "../../services";
@@ -12,7 +12,7 @@ const Stream = () => {
   const params = useParams();
 
   const [stream, setStream] = useState<IStream>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -36,10 +36,14 @@ const Stream = () => {
 
   return (
     <Container>
-      <HorizontalContainer>
-        <VideoPlayer stream={stream} />
-        <Chat stream={stream} />
-      </HorizontalContainer>
+      {!isLoading ? (
+        <HorizontalContainer>
+          <VideoPlayer stream={stream} />
+          <Chat stream={stream} />
+        </HorizontalContainer>
+      ) : (
+        <LoadingIndicator />
+      )}
     </Container>
   );
 };

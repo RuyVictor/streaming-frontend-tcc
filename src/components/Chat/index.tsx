@@ -9,7 +9,6 @@ import {
   UserName,
 } from "./styles";
 import { RiSendPlane2Fill } from "react-icons/ri";
-import { BsCameraReelsFill } from "react-icons/bs";
 import { socket } from "../../services/socket";
 import { IChat } from "../../models/Chat";
 import { IStream } from "../../models/Stream";
@@ -28,10 +27,12 @@ const Chat: FC<IProps> = ({ stream }) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (stream) {
-      socket.emit("join-chat-room", stream.id);
+    socket.emit("join-chat-room", stream?.id);
+
+    return () => {
+      socket.emit("leave-chat-room", stream?.id);
     }
-  }, [stream]);
+  }, []);
 
   socket.on("chat-message", (data: IChat) => {
     setMessages([...messages, data]);
