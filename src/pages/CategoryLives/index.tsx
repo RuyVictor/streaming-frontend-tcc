@@ -11,29 +11,50 @@ import {
 } from "./styles";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Divider from "../../components/Divider";
-import { useStream } from "../../hooks/stream.hook";
 import { ICategory } from "../../models/Category";
 import { toast } from "react-toastify";
-import { CategoryService } from "../../services";
+import { CategoryService, StreamService } from "../../services";
 import { AxiosError } from "axios";
 import StreamCard from "../../components/StreamCard";
 import { Nothing } from "../../components";
+import { IPagination } from "../../models/Common/Pagination";
+import { IStream, IStreamSearch } from "../../models/Stream";
 
 const CategoryLives = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const { handleGetStreams, queryOptions, isLoading, streams } = useStream();
 
-  const [selectedCategory, setSelectedCategory] = useState<ICategory>();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [category, setCategory] = useState<ICategory>();
+  const [streams, setStreams] = useState<IPagination<IStream[]>>({
+    data: [],
+    total: 0
+  });
+  const [queryOptions, setQueryOptions] = useState<IStreamSearch>({
+    page: 1,
+    take: 9
+  });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await CategoryService.getOneCategory(
-          params.categoryName!
-        );
-        setSelectedCategory(response.data);
+        setIsLoading(true)
+        const [ categoryResponse, StreamsResponse ] = await Promise.all([
+          await CategoryService.getOneCategory(
+            params.categoryName!
+          ),
+          await StreamService.getStreams({
+            category: category?.name,
+            page: queryOptions.page,
+            take: queryOptions.take,
+          })
+        ])
+        setCategory(categoryResponse.data);
+        setStreams(StreamsResponse.data);
+        setIsLoading(false)
       } catch (error) {
+        setIsLoading(false)
         const err = error as AxiosError;
         navigate("/categories");
         if (err.response?.status === 404) {
@@ -45,38 +66,38 @@ const CategoryLives = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    handleGetStreams({
-      category: selectedCategory?.name,
-      page: queryOptions.page,
-      take: queryOptions.take,
-    });
-  }, [selectedCategory]);
-
   const streamsList = useMemo(
     () =>
-      streams?.data?.map((stream) => <StreamCard key={stream.id} stream={stream}/>),
+      streams?.data?.map((stream) => (
+        <StreamCard key={stream.id} stream={stream} />
+      )),
     [streams]
   );
 
   return (
     <Container>
-      <CategoryThumbnailContainer>
-        <CategoryThumbnailImage src={selectedCategory?.image} />
-        <CategoryThumbnailInfoContainer>
-          <CategoryThumbnailTitle>
-            {selectedCategory?.name}
-          </CategoryThumbnailTitle>
-          <CategoryThumbnailSubTitle>
-            Streams ativas: {selectedCategory?.number_of_streams}
-          </CategoryThumbnailSubTitle>
-        </CategoryThumbnailInfoContainer>
-      </CategoryThumbnailContainer>
-      <Divider />
       {!isLoading ? (
-        <GridContainer>{streamsList}</GridContainer>
-      ) : <LoadingIndicator />}
-      {(streams?.data?.length === 0 && !isLoading) && <Nothing>Há um grande vazio por aqui...</Nothing>}
+        <>
+          <CategoryThumbnailContainer>
+            <CategoryThumbnailImage src={category?.image} />
+            <CategoryThumbnailInfoContainer>
+              <CategoryThumbnailTitle>
+                {category?.name}
+              </CategoryThumbnailTitle>
+              <CategoryThumbnailSubTitle>
+                Streams ativas: {category?.number_of_streams}
+              </CategoryThumbnailSubTitle>
+            </CategoryThumbnailInfoContainer>
+          </CategoryThumbnailContainer>
+          <Divider />
+          <GridContainer>{streamsList}</GridContainer>
+          {streams?.data?.length === 0 && (
+            <Nothing>Há um grande vazio por aqui...</Nothing>
+          )}
+        </>
+      ) : (
+        <LoadingIndicator />
+      )}
     </Container>
   );
 };

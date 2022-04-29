@@ -8,7 +8,7 @@ import Input from "../Input";
 import { Container, HorizontalContainer, ProfileName, Title } from "./styles";
 
 const Navbar = () => {
-  const { setQueryOptions } = useStream();
+  const { setSearchQuery } = useStream();
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -29,10 +29,7 @@ const Navbar = () => {
         variant="search"
         width={500}
         onSearch={(event) => {
-          setQueryOptions((prevState) => ({
-            ...prevState,
-            query: event.value?.toString() ?? "",
-          }));
+          setSearchQuery(event.value?.toString() ?? "");
           navigate("/lives");
         }}
       />

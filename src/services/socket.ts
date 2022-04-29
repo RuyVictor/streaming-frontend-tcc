@@ -1,4 +1,4 @@
 import { connect } from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:3333";
+const ENDPOINT = process.env.REACT_APP_SOCKET_HOST!;
 
 export const socket = connect(ENDPOINT);

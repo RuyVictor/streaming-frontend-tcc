@@ -32,18 +32,20 @@ const Categories = () => {
     subCategories,
   } = useCategory();
 
-  const defaultCategory = 'Jogos';
+  const defaultCategory = "Jogos";
 
   const [selectedCategory, setSelectedCategory] = useState(
     // caso acesse diretamente via URL
-    searchParams.get('tag') ??
-    // fallback para caso acesse a apartir de outra página
-    defaultCategory
+    searchParams.get("tag") ??
+      // fallback para caso acesse a apartir de outra página
+      defaultCategory
   );
 
   useEffect(() => {
-    const tagParam = searchParams.get('tag');
-    tagParam ? setSelectedCategory(tagParam) : navigate(`?tag=${defaultCategory}`) // categoria padrão
+    const tagParam = searchParams.get("tag");
+    tagParam
+      ? setSelectedCategory(tagParam)
+      : navigate(`?tag=${defaultCategory}`); // categoria padrão
   }, [location.search]);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ const Categories = () => {
               if (JSON.parse(category.have_subcategories!)) {
                 navigate(`?tag=${category.name}`);
               } else {
-                navigate(category.name)
+                navigate(category.name);
               }
             }}
           >
@@ -93,31 +95,33 @@ const Categories = () => {
 
   return (
     <Container>
-      <SubTitle>Principais Categorias</SubTitle>
-      <Divider />
-      <PrimaryCategoriesContainer>
-        {primaryCategoryList}
-      </PrimaryCategoriesContainer>
-      <SubTitle>Subcategorias</SubTitle>
-      <Divider />
       {!isLoading ? (
-        <GridContainer>
-          {subCategories?.map((subCategory) => (
-            <SubCategoriesCardContainer key={subCategory.id} onClick={() => navigate(subCategory.name)}>
-              <ImageCard
-                loading="lazy"
-                src={subCategory.image}
-              />
-              <SubCategoryInfoContainer>
-                <CardTitle>{subCategory.name}</CardTitle>
-                <HorizontalContainer>
-                  <MdLiveTv size={20} />
-                  {subCategory.number_of_streams}
-                </HorizontalContainer>
-              </SubCategoryInfoContainer>
-            </SubCategoriesCardContainer>
-          ))}
-        </GridContainer>
+        <>
+          <SubTitle>Principais Categorias</SubTitle>
+          <Divider />
+          <PrimaryCategoriesContainer>
+            {primaryCategoryList}
+          </PrimaryCategoriesContainer>
+          <SubTitle>Subcategorias</SubTitle>
+          <Divider />
+          <GridContainer>
+            {subCategories?.map((subCategory) => (
+              <SubCategoriesCardContainer
+                key={subCategory.id}
+                onClick={() => navigate(subCategory.name)}
+              >
+                <ImageCard loading="lazy" src={subCategory.image} />
+                <SubCategoryInfoContainer>
+                  <CardTitle>{subCategory.name}</CardTitle>
+                  <HorizontalContainer>
+                    <MdLiveTv size={20} />
+                    {subCategory.number_of_streams}
+                  </HorizontalContainer>
+                </SubCategoryInfoContainer>
+              </SubCategoriesCardContainer>
+            ))}
+          </GridContainer>
+        </>
       ) : (
         <LoadingIndicator />
       )}
