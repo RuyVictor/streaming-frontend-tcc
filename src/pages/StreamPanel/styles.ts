@@ -20,7 +20,7 @@ export const Container = styled.div`
   justify-content: center;
   gap: 20px;
   padding: 20px;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.secondary};
   height: calc(100% - 70px);
   overflow: hidden;
 `;
@@ -51,8 +51,8 @@ export const MenuItem = styled.div<IProps>`
   width: 100%;
   padding: 12px 10px;
   font-size: 20px;
-  background-color: ${({ theme }) => theme.colors.yellow};
-  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
   transition: all 300ms;
   cursor: pointer;
   user-select: none;

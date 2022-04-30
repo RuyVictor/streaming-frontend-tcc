@@ -2,6 +2,7 @@ import { FC, useRef } from "react";
 import { BsPeopleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { IStream } from "../../models/Stream";
+import LoadingIndicator from "../LoadingIndicator";
 import {
   Category,
   Container,
@@ -28,6 +29,8 @@ const StreamCard: FC<IProps> = ({ stream, children, ...rest }) => {
     >
       <ImageCard
         src={stream?.url}
+        poster={"https://c.tenor.com/aK9YaZum7RkAAAAC/excited-loading.gif"}
+        preload="metadata"
         disablePictureInPicture
         playerRef={videoRef}
         width="100%"

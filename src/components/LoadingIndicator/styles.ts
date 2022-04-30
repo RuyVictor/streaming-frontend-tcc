@@ -16,8 +16,8 @@ export const Container = styled.div`
   width: 9em;
   height: 9em;
   border-radius: 50%;
-  background: ${({ theme }) => theme.colors.yellow};
-  background: linear-gradient(to right,  ${({ theme }) => theme.colors.yellow} 10%, rgba(255, 255, 255, 0) 42%);
+  background: ${({ theme }) => theme.colors.primary};
+  background: linear-gradient(to right,  ${({ theme }) => theme.colors.primary} 10%, rgba(255, 255, 255, 0) 42%);
   position: relative;
   animation: ${moveAnimation} 1.4s infinite linear;
   transform: translateZ(0);
@@ -25,7 +25,7 @@ export const Container = styled.div`
   ::before {
     width: 50%;
     height: 50%;
-    background: ${({ theme }) => theme.colors.yellow};
+    background: ${({ theme }) => theme.colors.primary};
     border-radius: 100% 0 0 0;
     position: absolute;
     overflow: hidden;
@@ -35,7 +35,7 @@ export const Container = styled.div`
   }
 
   ::after {
-    background: ${({ theme }) => theme.colors.black};
+    background: ${({ theme }) => theme.colors.secondary};
     width: 75%;
     height: 75%;
     border-radius: 50%;

@@ -9,13 +9,18 @@ export const Container = styled.button<InputProps>`
   padding: 5px 20px;
   border-radius: 5px;
   white-space: nowrap;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-weight: 600;
   font-size: 18px;
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
   transition: all 300ms;
 
   :hover {
     opacity: 0.8;
+  }
+
+  :active {
+    opacity: 0.4;
   }
 
   ::after {
@@ -27,12 +32,12 @@ export const Container = styled.button<InputProps>`
   ${(props) =>
     props.variant === "primary" ? 
     css`
-      color: ${({ theme }) => theme.colors.black};
-      background-color: ${({ theme }) => theme.colors.yellow};
+      color: ${({ theme }) => theme.colors.secondary};
+      background-color: ${({ theme }) => theme.colors.primary};
     ` :
     css`
       color: ${({ theme }) => theme.colors.white};
-      background-color: ${({ theme }) => theme.colors.black};
+      background-color: ${({ theme }) => theme.colors.secondary};
     `
   }
 

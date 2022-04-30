@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
   position: sticky;
   z-index: 9999;
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const HorizontalContainer = styled.div`
@@ -21,12 +21,13 @@ export const HorizontalContainer = styled.div`
 
 export const Title = styled.span`
   font-size: 25px;
-  color: ${({ theme }) => theme.colors.black};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.secondary};
   white-space: nowrap;
 `;
 
 export const ProfileName = styled.span`
   font-size: 20px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
   white-space: nowrap;
 `;

@@ -30,6 +30,6 @@ export const LinksContainer = styled.div`
   }
 
   div:hover {
-    background-color: ${({ theme }) => theme.colors.yellow};
+    background-color: ${({ theme }) => theme.colors.primary};
   }
 `;

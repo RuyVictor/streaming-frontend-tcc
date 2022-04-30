@@ -81,7 +81,7 @@ const Input = forwardRef(
       <Container style={{ width: width }}>
         <Label>{label}</Label>
         <InputWrapper variant={variant} disabled={disabled} error={!!error}>
-          {variant === "search" ? <BsSearch /> : leftIcon}
+          {variant === "search" ? <BsSearch size={14} style={{flexShrink: 0}}/> : leftIcon}
           <InputContainer
             ref={combinedRef as any}
             {...rest}

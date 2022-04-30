@@ -20,7 +20,7 @@ export const Container = styled.div`
     &:hover {
       transition: 0.3s;
       color: ${({ theme }) => theme.colors.white};
-      background: ${({ theme }) => theme.colors.black};
+      background: ${({ theme }) => theme.colors.secondary};
     }
 
     &::marker {
@@ -36,8 +36,8 @@ export const Container = styled.div`
   .item.active {
     color: ${({ theme }) => theme.colors.white};
     font-weight: 800;
-    border-color: ${({ theme }) => theme.colors.black};
-    background: ${({ theme }) => theme.colors.black};
+    border-color: ${({ theme }) => theme.colors.secondary};
+    background: ${({ theme }) => theme.colors.secondary};
   }
 
   .disabled {

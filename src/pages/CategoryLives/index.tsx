@@ -45,7 +45,7 @@ const CategoryLives = () => {
             params.categoryName!
           ),
           await StreamService.getStreams({
-            category: category?.name,
+            category: params.categoryName!,
             page: queryOptions.page,
             take: queryOptions.take,
           })

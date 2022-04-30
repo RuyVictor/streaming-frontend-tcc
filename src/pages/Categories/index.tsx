@@ -14,23 +14,19 @@ import {
   CategoryInfoContainer,
   SubTitle,
 } from "./styles";
-import { useCategory } from "../../hooks/category.hook";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Divider from "../../components/Divider";
+import { IPagination } from "../../models/Common/Pagination";
+import { ICategory } from "../../models/Category";
+import { ISearchQuery } from "../../models/Common/SearchQuery";
+import { CategoryService } from "../../services";
+import { toast } from "react-toastify";
+import { Nothing } from "../../components";
 
 const Categories = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-
-  const {
-    handleGetCategories,
-    handleGetSubCategories,
-    isLoading,
-    queryOptions,
-    categories,
-    subCategories,
-  } = useCategory();
 
   const defaultCategory = "Jogos";
 
@@ -48,20 +44,40 @@ const Categories = () => {
       : navigate(`?tag=${defaultCategory}`); // categoria padrão
   }, [location.search]);
 
-  useEffect(() => {
-    handleGetCategories({
-      page: queryOptions.page,
-      take: queryOptions.take,
-    });
-  }, []);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [queryOptions, setQueryOptions] = useState<ISearchQuery>({
+    page: 1,
+    take: 9,
+  });
+  const [categories, setCategories] = useState<ICategory[]>();
+  const [subCategories, setSubCategories] = useState<IPagination<ICategory[]>>({
+    data: [],
+    total: 0,
+  });
 
   useEffect(() => {
-    handleGetSubCategories({
-      name: selectedCategory,
-      page: queryOptions.page,
-      take: queryOptions.take,
-    });
-  }, [selectedCategory]);
+    const handleGetCategoriesAndSubCategories = async () => {
+      try {
+        setIsLoading(true);
+        const [rootCategoriesResponse, subCategoriesResponse] =
+          await Promise.all([
+            await CategoryService.getCategories(),
+            await CategoryService.getCategories({
+              name: selectedCategory,
+              page: queryOptions.page,
+              take: queryOptions.take,
+            }),
+          ]);
+        setCategories(rootCategoriesResponse.data.data);
+        setSubCategories(subCategoriesResponse.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        toast.error("Ocorreu um problema ao requisitar dados do servidor!");
+      }
+    };
+    handleGetCategoriesAndSubCategories();
+  }, [queryOptions, selectedCategory]);
 
   const primaryCategoryList = useMemo(
     () =>
@@ -96,32 +112,36 @@ const Categories = () => {
   return (
     <Container>
       {!isLoading ? (
-        <>
-          <SubTitle>Principais Categorias</SubTitle>
-          <Divider />
-          <PrimaryCategoriesContainer>
-            {primaryCategoryList}
-          </PrimaryCategoriesContainer>
-          <SubTitle>Subcategorias</SubTitle>
-          <Divider />
-          <GridContainer>
-            {subCategories?.map((subCategory) => (
-              <SubCategoriesCardContainer
-                key={subCategory.id}
-                onClick={() => navigate(subCategory.name)}
-              >
-                <ImageCard loading="lazy" src={subCategory.image} />
-                <SubCategoryInfoContainer>
-                  <CardTitle>{subCategory.name}</CardTitle>
-                  <HorizontalContainer>
-                    <MdLiveTv size={20} />
-                    {subCategory.number_of_streams}
-                  </HorizontalContainer>
-                </SubCategoryInfoContainer>
-              </SubCategoriesCardContainer>
-            ))}
-          </GridContainer>
-        </>
+        categories?.length !== 0 ? (
+          <>
+            <SubTitle>Principais Categorias</SubTitle>
+            <Divider />
+            <PrimaryCategoriesContainer>
+              {primaryCategoryList}
+            </PrimaryCategoriesContainer>
+            <SubTitle>Subcategorias</SubTitle>
+            <Divider />
+            <GridContainer>
+              {subCategories.data?.map((subCategory) => (
+                <SubCategoriesCardContainer
+                  key={subCategory.id}
+                  onClick={() => navigate(subCategory.name)}
+                >
+                  <ImageCard loading="lazy" src={subCategory.image} />
+                  <SubCategoryInfoContainer>
+                    <CardTitle>{subCategory.name}</CardTitle>
+                    <HorizontalContainer>
+                      <MdLiveTv size={20} />
+                      {subCategory.number_of_streams}
+                    </HorizontalContainer>
+                  </SubCategoryInfoContainer>
+                </SubCategoriesCardContainer>
+              ))}
+            </GridContainer>
+          </>
+        ) : (
+          <Nothing>Há um grande vazio por aqui...</Nothing>
+        )
       ) : (
         <LoadingIndicator />
       )}

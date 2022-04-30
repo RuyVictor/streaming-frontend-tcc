@@ -24,7 +24,7 @@ export const Container = styled.table`
 `;
 
 export const TableHead = styled.thead`
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.secondary};
   color: white;
   border-radius: 3px 3px 0 0;
   color: ${({ theme }) => theme.colors.white};

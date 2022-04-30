@@ -17,7 +17,7 @@ export const Container = styled.div`
   height: calc(100% - 70px);
   gap: 20px;
   padding: 20px;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.secondary};
   overflow: hidden;
 `;
 

@@ -13,7 +13,7 @@ const moveAnimation = (pixelDistance: string) => keyframes`
 
 export const Container = styled.div`
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 10px;
   width: 500px;
   height: min-content;
@@ -34,7 +34,7 @@ export const InputsContainer = styled.div`
 
 export const Description = styled.div`
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
   padding: 5px 10px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.white};

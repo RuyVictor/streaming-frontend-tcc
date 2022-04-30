@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Icon = styled(RiErrorWarningFill)`
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
   flex-shrink: 0;
 `;
 

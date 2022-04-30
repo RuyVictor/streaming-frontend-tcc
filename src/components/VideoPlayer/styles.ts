@@ -23,7 +23,7 @@ export const Container = styled.div`
   flex: 1;
   max-width: 1000px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
-  // background-color: ${({ theme }) => theme.colors.yellow};
+  // background-color: ${({ theme }) => theme.colors.primary};
   animation-name: ${moveAnimation('200px')};
   animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   animation-duration: 1s;
@@ -39,7 +39,7 @@ export const WrapperContainer = styled.div<IProps>`
       z-index: 2;
       align-items: center;
       justify-content: center;
-      background-color: ${({ theme }) => theme.colors.black};
+      background-color: ${({ theme }) => theme.colors.secondary};
     `}
   
   span {
@@ -50,7 +50,7 @@ export const WrapperContainer = styled.div<IProps>`
     text-align: center;
     z-index: 3;
     font-size: 50px;
-    color: ${({ theme }) => theme.colors.yellow};
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -66,23 +66,24 @@ export const StreamInfoContainer = styled.div`
   align-items: center;
   gap: 10px;
   padding-inline: 20px;
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const StreamTitle = styled.p`
   font-size: 18px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const StreamDescription = styled.p`
   font-size: 15px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const StreamHost = styled.p`
-  font-size: 15px;
-  margin-inline: 20px;
-  color: ${({ theme }) => theme.colors.black};
+  font-size: 18px;
+  font-weight: 600;
+  margin-inline: 15px;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const VerticalContainer = styled.div`

@@ -20,6 +20,8 @@ const moveAnimation = (distanceX?: string, distanceY?: string) => keyframes`
 
 export const SubTitle = styled.span`
   font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
   color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -29,7 +31,7 @@ export const Container = styled.div`
   height: calc(100% - 70px);
   gap: 10px;
   padding: 10px 50px;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const GridContainer = styled.div`
@@ -49,7 +51,7 @@ export const PrimaryCategoriesContainer = styled.div`
 export const PrimaryCategoryCardContainer = styled.div<IProps>`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
   width: 170px;
   height: 100px;
   border-radius: 7px;
@@ -75,7 +77,7 @@ export const PrimaryCategoryCardContainer = styled.div<IProps>`
   ${(props) =>
     props.selected &&
     css`
-      outline: 5px solid ${({ theme }) => theme.colors.yellow};
+      outline: 5px solid ${({ theme }) => theme.colors.primary};
       box-shadow: 0px 0px 30px 0px rgba(255,255,255,0.3);
   `}
 `;
@@ -83,7 +85,7 @@ export const PrimaryCategoryCardContainer = styled.div<IProps>`
 export const SubCategoriesCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 7px;
   overflow: hidden;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
@@ -105,6 +107,7 @@ export const CategoryInfoContainer = styled.div`
   justify-content: space-between;
   gap: 20px;
   padding: 2px 10px;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const SubCategoryInfoContainer = styled.div`
@@ -113,6 +116,7 @@ export const SubCategoryInfoContainer = styled.div`
   justify-content: space-between;
   gap: 20px;
   padding: 10px 20px;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const ImageCard = styled.img`
@@ -129,15 +133,5 @@ export const ImageCard = styled.img`
 
 export const CardTitle = styled.div`
   font-size: 20px;
-  color: ${({ theme }) => theme.colors.black};
-`;
-
-export const CardDescription = styled.div`
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 15px;
-  color: ${({ theme }) => theme.colors.black};
+  font-weight: 600;
 `;

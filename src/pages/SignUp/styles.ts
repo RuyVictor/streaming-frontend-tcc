@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.secondary};
   height: calc(100% - 70px);
   padding: 30px;
   overflow-y: hidden;
@@ -39,6 +39,7 @@ export const InputsContainer = styled.div`
 
 export const Title = styled.h1`
   font-size: 3.8rem;
-  color: ${({ theme }) => theme.colors.black};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.secondary};
   margin: 2.181rem 0 2.2rem 0;
 `;

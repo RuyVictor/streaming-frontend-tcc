@@ -5,7 +5,7 @@ import { IPagination } from "../models/Common/Pagination";
 import api from "./api";
 
 const CategoryService = {
-  getCategories(data: ICategorySearch): AxiosPromise<IPagination<ICategory[]>> {
+  getCategories(data?: ICategorySearch): AxiosPromise<IPagination<ICategory[]>> {
     return api.get("/category/find", { params: data });
   },
 

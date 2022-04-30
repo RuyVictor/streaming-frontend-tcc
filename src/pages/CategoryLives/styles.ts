@@ -19,7 +19,7 @@ export const Container = styled.div`
   gap: 20px;
   padding: 10px 50px;
   height: calc(100% - 70px);
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const CategoryThumbnailContainer = styled.div`
@@ -55,7 +55,7 @@ export const CategoryThumbnailTitle = styled.span`
   font-size: 60px;
   font-weight: 600;
   text-shadow: 1px 2px 11px rgba(255,255,255,0.3);
-  color: ${({ theme }) => theme.colors.yellow};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const CategoryThumbnailSubTitle = styled.span`

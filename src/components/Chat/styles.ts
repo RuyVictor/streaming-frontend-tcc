@@ -51,7 +51,7 @@ export const UserName = styled.span`
   font-weight: 600;
   flex-shrink: 0;
   white-space: nowrap;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const Message = styled.span`
@@ -59,8 +59,8 @@ export const Message = styled.span`
   word-break: break-word;
   padding: 3px 5px;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.yellow};
-  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
   opacity: 0.8;
 `;
 
@@ -69,7 +69,7 @@ export const ActionsContainer = styled.div<IProps>`
   align-items: center;
   padding: 10px;
   gap: 10px;
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
 
   ${(props) =>
     props.disabled &&
@@ -81,7 +81,7 @@ export const ActionsContainer = styled.div<IProps>`
 
 export const CameraIcon = styled(BsCameraReelsFill)`
   flex-shrink: 0;
-  font-size: 10px;
-  margin-top: 7px;
+  font-size: 12px;
+  margin-top: 6px;
   color: red;
 `;

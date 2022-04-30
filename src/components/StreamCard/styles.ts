@@ -18,7 +18,7 @@ const moveAnimation = keyframes`
 `;
 
 export const Container = styled.div`
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 7px;
   overflow: hidden;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
@@ -32,6 +32,7 @@ export const HorizontalContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const VerticalContainer = styled.div`
@@ -50,6 +51,7 @@ export const ImageCard = styled(ReactHlsPlayer)`
   width: 100%;
   object-fit: cover;
   transition: all 300ms;
+  aspect-ratio: 16 / 9; // poster e vídeo com o mesmo height e width
 
   ${Container}:hover & {
     opacity: 0.9;
@@ -59,15 +61,16 @@ export const ImageCard = styled(ReactHlsPlayer)`
 
 export const Title = styled.p`
   font-size: 16px;
+  font-weight: 600;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const UserName = styled.p`
   font-size: 12px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const Category = styled.p`
@@ -75,13 +78,6 @@ export const Category = styled.p`
   padding: 0px 3px;
   border-radius: 3px;
   opacity: 0.8;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
-`;
-
-export const Description = styled.p`
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 15px;
-  color: ${({ theme }) => theme.colors.black};
 `;

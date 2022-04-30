@@ -13,7 +13,7 @@ const moveAnimation = (pixelDistance: string) => keyframes`
 
 export const Container = styled.div`
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.primary};
   border-radius: 10px;
   width: 500px;
   height: min-content;

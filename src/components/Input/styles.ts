@@ -57,7 +57,8 @@ export const Spacer = styled.div`
 `;
 
 export const Label = styled.span`
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-weight: 600;
   font-size: 16px;
 `;
 
@@ -68,7 +69,7 @@ export const WarningMessage = styled.span`
 
 export const MaxLengthMessage = styled.span`
   margin-left: auto;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
   font-size: 12px;
 `;
 

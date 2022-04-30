@@ -38,8 +38,9 @@ export const SelectContainer = styled.select<IProps>`
 `;
 
 export const Label = styled.span`
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.secondary};
   font-size: 16px;
+  font-weight: 600;
 `;
 
 export const WarningMessage = styled.span`
