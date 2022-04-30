@@ -4,6 +4,6 @@ import { IEditStreamDTO } from '../../models/Stream';
 
 export const EditStreamSchema: Yup.SchemaOf<IEditStreamDTO> = Yup.object().shape({
     title: Yup.string().required('Digite um título'),
-    description: Yup.string().optional(),
+    description: Yup.string().nullable().notRequired(),
     category: Yup.string().required('Digite uma categoria'),
 });

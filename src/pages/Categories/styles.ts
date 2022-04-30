@@ -134,4 +134,5 @@ export const ImageCard = styled.img`
 export const CardTitle = styled.div`
   font-size: 20px;
   font-weight: 600;
+  letter-spacing: 1px;
 `;

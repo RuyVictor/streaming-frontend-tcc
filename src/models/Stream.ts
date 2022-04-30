@@ -15,7 +15,7 @@ export interface IStream {
 
 export interface IEditStreamDTO {
     title?: string;
-    description?: string;
+    description?: string | null;
     category?: string;
 }
 

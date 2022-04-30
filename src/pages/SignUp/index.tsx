@@ -48,11 +48,13 @@ const SignUp = () => {
           />
           <Input
             label="Senha"
+            type="password"
             {...register("password")}
             error={formState.errors.password?.message}
           />
           <Input
             label="Confirmar senha"
+            type="password"
             {...register("confirm_password")}
             error={formState.errors.confirm_password?.message}
           />
