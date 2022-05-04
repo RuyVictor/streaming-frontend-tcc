@@ -64,26 +64,30 @@ const StreamPanel = () => {
 
   return (
     <Container>
-      <MenuContainer>
-        {items.map((item) => (
-          <MenuItem
-            key={item.index}
-            selected={selectedOption === item.label}
-            onClick={() => navigate(`?option=${item.label}`)}
-          >
-            {item.label}
-          </MenuItem>
-        ))}
-      </MenuContainer>
-      <FixedWidthContainer>
-        {selectedOption === items[0].label ? (
-          <VideoPlayer stream={stream} />
-        ) : selectedOption === items[1].label ? (
-          <EditStreamInfo />
-        ) : selectedOption === items[2].label ? (
-          <ManageKeys />
-        ) : null}
-      </FixedWidthContainer>
+      {!isLoading ? (
+        <>
+          <MenuContainer>
+            {items.map((item) => (
+              <MenuItem
+                key={item.index}
+                selected={selectedOption === item.label}
+                onClick={() => navigate(`?option=${item.label}`)}
+              >
+                {item.label}
+              </MenuItem>
+            ))}
+          </MenuContainer>
+          <FixedWidthContainer>
+            {selectedOption === items[0].label ? (
+              <VideoPlayer stream={stream} />
+            ) : selectedOption === items[1].label ? (
+              <EditStreamInfo />
+            ) : selectedOption === items[2].label ? (
+              <ManageKeys />
+            ) : null}
+          </FixedWidthContainer>
+        </>
+      ) : <LoadingIndicator/>}
     </Container>
   );
 };
