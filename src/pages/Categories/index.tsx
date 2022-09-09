@@ -61,14 +61,14 @@ const Categories = () => {
         setIsLoading(true);
         const [rootCategoriesResponse, subCategoriesResponse] =
           await Promise.all([
-            await CategoryService.getCategories(),
-            await CategoryService.getCategories({
+            CategoryService.getRootCategories(),
+            CategoryService.getSubcategories({
               name: selectedCategory,
               page: queryOptions.page,
               take: queryOptions.take,
             }),
           ]);
-        setCategories(rootCategoriesResponse.data.data);
+        setCategories(rootCategoriesResponse.data);
         setSubCategories(subCategoriesResponse.data);
         setIsLoading(false);
       } catch (error) {

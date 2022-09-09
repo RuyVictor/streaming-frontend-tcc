@@ -9,24 +9,26 @@ api.interceptors.response.use(
   (res) => res,
   async (error) => {
     const originalRequest = error.config; // request original
-    
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
 
-      const accessToken = localStorage.getItem(StoragePrefix.accessToken);
-      const refreshToken = localStorage.getItem(StoragePrefix.refreshToken);
+    if (error.response.status === 401 || error.response.status === 400) {
+      if (!originalRequest._retry) {
+        originalRequest._retry = true;
 
-      const response = await api.post(
-        "/auth/refresh-token",
-        { accessToken, refreshToken },
-      );
+        const accessToken = localStorage.getItem(StoragePrefix.accessToken);
+        const refreshToken = localStorage.getItem(StoragePrefix.refreshToken);
 
-      if (response.status === 200) {
-        const newAccessToken = response.data.newAccessToken;
-        localStorage.setItem(StoragePrefix.accessToken, newAccessToken);
-        api.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-        error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
+        const response = await api.post("/auth/refresh-token", {
+          accessToken,
+          refreshToken,
+        });
+
+        if (response.status === 200) {
+          const newAccessToken = response.data.newAccessToken;
+          localStorage.setItem(StoragePrefix.accessToken, newAccessToken);
+          api.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+          error.config.headers.Authorization = `Bearer ${newAccessToken}`;
+          return api(originalRequest);
+        }
       }
     }
     return Promise.reject(error);

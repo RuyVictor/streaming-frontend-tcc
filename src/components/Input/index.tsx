@@ -74,21 +74,26 @@ const Input = forwardRef(
     useEffect(() => {
       const typedCombinedRef =
         combinedRef.current as unknown as React.InputHTMLAttributes<HTMLInputElement>;
-        setInputLength(typedCombinedRef?.value?.toString().length ?? 0);
+      setInputLength(typedCombinedRef?.value?.toString().length ?? 0);
     }, [ref]);
 
     return (
       <Container style={{ width: width }}>
         <Label>{label}</Label>
         <InputWrapper variant={variant} disabled={disabled} error={!!error}>
-          {variant === "search" ? <BsSearch size={14} style={{flexShrink: 0}}/> : leftIcon}
+          {variant === "search" ? (
+            <BsSearch size={14} style={{ flexShrink: 0 }} />
+          ) : (
+            leftIcon
+          )}
           <InputContainer
             ref={combinedRef as any}
             {...rest}
             maxLength={maxLength}
             onChange={(event) => {
-              onChange!(event);
-              setInputLength(event.target.value.length) }}
+              onChange?.(event);
+              setInputLength(event.target.value.length);
+            }}
             onKeyUp={(event) => {
               if (event.key === "Enter" && onSearch) {
                 onSearch(inputRef.current!);
@@ -110,7 +115,11 @@ const Input = forwardRef(
         {(error || maxLength) && (
           <HorizontalContainer>
             {error && <WarningMessage>{error}</WarningMessage>}
-            {maxLength && <MaxLengthMessage>{inputLength + "/" + maxLength}</MaxLengthMessage>}
+            {maxLength && (
+              <MaxLengthMessage>
+                {inputLength + "/" + maxLength}
+              </MaxLengthMessage>
+            )}
           </HorizontalContainer>
         )}
       </Container>

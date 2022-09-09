@@ -18,7 +18,9 @@ const Stream = () => {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const response = await StreamService.getOneStream(params.streamHost!);
+        const response = await StreamService.getOneStream({
+          hostname: params.streamHost!,
+        });
         setStream(response.data);
         setIsLoading(false);
       } catch (error) {

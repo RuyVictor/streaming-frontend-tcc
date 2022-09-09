@@ -25,9 +25,9 @@ const StreamPanel = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const items = [
-    {label: "Painel", index: 0},
-    {label: "Informações da transmissão", index: 1},
-    {label: "Gerenciar chaves", index: 2},
+    { label: "Painel", index: 0 },
+    { label: "Informações da transmissão", index: 1 },
+    { label: "Gerenciar chaves", index: 2 },
   ];
   const defaultOption = items[0].label;
 
@@ -46,7 +46,9 @@ const StreamPanel = () => {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const response = await StreamService.getOneStream(user?.name!);
+        const response = await StreamService.getOneStream({
+          hostname: user?.name!,
+        });
         setStream(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -87,7 +89,9 @@ const StreamPanel = () => {
             ) : null}
           </FixedWidthContainer>
         </>
-      ) : <LoadingIndicator/>}
+      ) : (
+        <LoadingIndicator />
+      )}
     </Container>
   );
 };

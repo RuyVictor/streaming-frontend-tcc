@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
-import { ReactFlvPlayer } from "react-flv-player";
-import ReactHlsPlayer from 'react-hls-player';
+import { useRef } from "react";
+import ReactHlsPlayer from "react-hls-player";
 
 // Styles
 import {
@@ -20,23 +19,6 @@ interface IVideoPlayerProps {
 
 const VideoPlayer: React.FC<IVideoPlayerProps> = ({ stream }) => {
   const videoRef = useRef<any>(null);
-
-  /* useEffect(() => {
-    async function playVideo() {
-      if (stream && videoRef?.current) {
-        const video = videoRef?.current?.myRef.current as HTMLVideoElement;
-        console.log(videoRef)
-        await new Promise((r) => setTimeout(r, 1000));
-        video.muted = false;
-        try {
-          await video.play();
-        } catch(err) {
-        }
-      }
-    }
-
-    playVideo()
-  }, []); */
 
   return (
     <Container>

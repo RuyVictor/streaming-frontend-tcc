@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Container, Description, InputsContainer } from "./styles";
+import { useNavigate } from "react-router-dom";
+import { Container, InputsContainer } from "./styles";
 import { IEditStreamDTO, IStream } from "../../../models/Stream";
 import { CategoryService, StreamService } from "../../../services";
 import { toast } from "react-toastify";
@@ -24,8 +24,8 @@ const EditStreamInfo: FC = () => {
       try {
         setIsLoading(true);
         const [streamResponse, categoriesResponse] = await Promise.all([
-          await StreamService.getOneStream(user?.name!),
-          await CategoryService.getSelectableCategories(),
+          StreamService.getOneStream({ hostname: user?.name! }),
+          CategoryService.getSelectableCategories(),
         ]);
         setStream(streamResponse.data);
         setCategories(categoriesResponse.data.data);
@@ -57,7 +57,7 @@ const EditStreamInfo: FC = () => {
       reset({
         title: stream.title,
         description: stream.description,
-        category: stream.category?.id,
+        categoryId: stream.category?.id,
       });
     }
   }, [stream]);
@@ -104,8 +104,8 @@ const EditStreamInfo: FC = () => {
                 id: value.id,
                 label: value.name,
               }))}
-              {...register("category")}
-              error={formState.errors.category?.message}
+              {...register("categoryId")}
+              error={formState.errors.categoryId?.message}
             />
 
             <Button

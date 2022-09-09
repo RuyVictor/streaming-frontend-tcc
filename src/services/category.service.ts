@@ -5,8 +5,14 @@ import { IPagination } from "../models/Common/Pagination";
 import api from "./api";
 
 const CategoryService = {
-  getCategories(data?: ICategorySearch): AxiosPromise<IPagination<ICategory[]>> {
-    return api.get("/category/find", { params: data });
+  getRootCategories(): AxiosPromise<ICategory[]> {
+    return api.get("/category/find-roots");
+  },
+
+  getSubcategories(
+    data?: ICategorySearch
+  ): AxiosPromise<IPagination<ICategory[]>> {
+    return api.get("/category/find-subs", { params: data });
   },
 
   getSelectableCategories(): AxiosPromise<IPagination<ICategory[]>> {
